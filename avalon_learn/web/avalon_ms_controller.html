@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ms-controller</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="../dist/avalon.js"></script>
+	<style>
+	/* 挡住花括号乱码问题 */
+		.ms-controller{
+			visibility: hidden;
+		}
+	</style>
+</head>
+<body>
+<script>
+	avalon.define({
+		$id: "AAA",
+		name: "dog",
+		color: "yellor"
+	});
+	avalon.define({
+		$id: "BBB",
+		name: "pig",
+		color: "red"
+	});
+	avalon.define({
+		$id: "CCC",
+		name: "dragon"
+	});
+	avalon.define({
+		$id: "DDD",
+		name: "seral"
+	});
+	avalon.define({
+		$id: "PPP",
+		name: "xiong",
+		color: "black"
+	})
+</script>
+	<div ms-important="PPP">
+		<p>{{@name}} : {{@color}}</p>
+	</div>
+	<div ms-important="AAA">
+		<p>{{@name}} : {{@color}}</p>
+		<div ms-controller="BBB">  <!-- ms-controller圈定的作用域某个属性在VM找不到时，就近原则一级一级会向上寻找 -->
+			<p>{{@name}} : {{@color}}</p>
+			<div ms-controller="CCC">
+				<p>{{@name}} : {{@color}}</p>
+				<div ms-important="DDD">  <!-- ms-important圈定的作用域某个属性在VM找不到时，不会向上寻找； -->
+					<p>{{@name}} : {{@color}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

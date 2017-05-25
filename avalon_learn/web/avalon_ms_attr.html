@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ms-attr属性绑定</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="../dist/avalon.js"></script> 
+</head>
+<body ms-controller="test">
+	<script>
+		avalon.define({
+			$id: "test",
+			obj: {title: '普通',align: 'left'},
+			active: {title: '激活'},
+			width: 111,
+			height: 222,
+			arr: [{img: 'aaa'}, {img: 'bbb'}, {img:'ccc'}],
+			path: '../img/i1.jpg',
+			toggle: false,
+			array: [{width: 1}, {height: 2}] 
+		})
+	</script>
+	<span ms-attr="@obj">直接引用对象</span>
+	<img ms-attr="{src: @path}" />
+	<ul>
+		<li ms-for="el in @arr"><a ms-attr="{href: 'http://www.ccc.xxx/ddd/' + el.img}">下载</a></li>
+	</ul>
+	<span ms-attr="{width: @width, height: @height}">使用对象字面量</span>
+	<br>
+	<span ms-attr="@array">直接引用数组</span>
+	<span ms-attr="[@obj, @toggle && @active]" ms-click="toggle = !@toggle">选择性添加多余属性或重写已有属性</span>
+</body>
+</html>

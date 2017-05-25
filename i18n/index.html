@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>i18n</title>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.i18n.properties-1.0.9.js"></script>
+</head>
+<body>
+	<div id="content">
+		<div>
+			<label id="label_username"></label>
+			<input type="text" id="username" />
+		</div>
+		<div>
+			<label id="label_password"></label>
+			<input type="password" id="password" />
+		</div>
+		<input type="button" id="button_login" />
+	</div>
+	<script>
+		function loadProperties(){
+			jQuery.i18n.properties({
+				name:'strings',
+				path:'i18n/',
+				mode:'map',
+				callback: function(){
+					$('#label_username').text($.i18n.prop('string_username'));
+					$('#label_password').text($.i18n.prop('string_password'));
+					$('#button_login').val($.i18n.prop('string_login'));
+					$('#content').val($.i18n.prop('string_hello'));
+				}
+			})
+		};
+		loadProperties();
+	</script>
+</body>
+</html>

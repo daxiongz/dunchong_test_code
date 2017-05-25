@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body{
+	background-color: #C9CBCB;
+}
+.wrap {
+    width: 100%;
+    
+    line-height: .2rem;
+}
+hr{
+	margin-top: .1rem;
+}
+
+.btn-title {
+    margin-left: .1rem;
+    background-color: #4784B7;
+    border: 1px solid #4784B7;
+    border-radius: 5px;
+    padding: 5px;
+    color: #000000;
+    font-size: .18rem;
+    
+}
+.left{
+	width: 2.5rem;
+	float: left;
+	margin-left: 20%;
+	text-align: right;
+}
+.right{
+	float: left;
+	margin-left: 15px;
+}
+.clear{
+	clear: both;
+}
+.line {
+	width: 100%;
+	height: .2rem;
+	text-align: center;
+	margin-top: .1rem;
+	font-size: .16rem;
+}
+select{
+	
+	padding: .02rem;
+}
+input{
+	height: .15rem;
+}
+.save-btn{
+	color: #fff;
+	background-color: #337ab7;
+	border-color: #2e6da4;
+}
+.opbtn{
+	display: inline-block;
+	margin-left: .5rem;
+}
+.savebtn{
+	display: inline-block;
+	margin-left: 1rem;
+}
+.pageHint{
+	font-size: 16px;
+	color: #212424;
+	text-decoration: underline;
+	margin-left: .1rem;
+}
+.connect-btn{
+	color: #337ab7;
+    background-color: #fff;
+    border-color: #2e6da4;
+}

@@ -1,0 +1,192 @@
+<%+header%>
+    <script src="<%=resource%>/js/jquery.min.js"></script>
+    <script src="<%=resource%>/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="<%=resource%>/css/bootstrap.min.js">
+    <link rel="stylesheet" href="<%=resource%>/css/public.js">
+    <style>
+    .textleft {
+        font-size: 20px;
+    }
+    
+    .form-control {
+        font-size: 18px;
+    }
+    
+    .text-warning {
+        font-size: 17px;
+    }
+    
+    .container {
+        margin-top: .2rem;
+    }
+    </style>
+    <script>
+    //<![CDATA[
+    var cssEl = document.createElement('style');
+    document.documentElement.firstElementChild.appendChild(cssEl);
+
+    function setPxPerRem() {
+        var dpr = window.devicePixelRatio || 1;
+        //把viewport分成10份的rem，html标签的font-size设置为1rem的大小;
+        var pxPerRem = document.documentElement.clientWidth * dpr / 10;
+        cssEl.innerHTML = 'html{font-size:' + pxPerRem + 'px!important;}';
+        console.log(dpr);
+    }
+    setPxPerRem(); //]]>
+    </script>
+    <div class="container">
+        <div class="row">
+            <span class="btn btn-primary">LAN口设置</span>
+            <hr>
+            <div class="row">
+                <div class="col-md-5">
+                    <p style="text-align: right;" class="textleft">IP地址：</p>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="ipadd" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-success">保存</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <p style="text-align: right;" class="textleft">子网掩码：</p>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="mask" class="form-control">
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <p style="text-align: right;" class="textleft">DHCP开启：</p>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <input type="checkbox" id="switchdhcp" onclick="dhcpSwitch()" checked>
+                    </label>
+                </div>
+                <div class="col-md-3">
+                    <span class="text-warning">控制DHCP服务是否开启</span>
+                </div>
+            </div>
+            <div id="dhcpOption">
+                <div class="row">
+                    <div class="col-md-5">
+                        <p style="text-align: right;" class="textleft">起始地址：</p>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="startadd" class="form-control">
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <p style="text-align: right;" class="textleft">结束地址：</p>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="endadd" class="form-control">
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <p style="text-align: right;" class="textleft">租用时间：</p>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="renttime" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <span class="text-warning">可选</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <p style="text-align: right;" class="textleft">主DNS服务器：</p>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="primaryDNS" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <span class="text-warning">可选</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <p style="text-align: right;" class="textleft">辅DNS服务器：</p>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="secondaryDNS" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <span class="text-warning">可选</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5" style="text-align: right;">
+                        <p class="textleft">DHCP-OPTIONS：</p>
+                    </div>
+                    <div class="col-md-4 ">
+                        <input type="text" id="dhcpoptions0" class="form-control">
+                    </div>
+                    <div class="col-md-1" id="del">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-warning">格式1,192.168.1.1</p>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-info" onclick="addOption()">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    //<![CDATA[
+    var countOption = 0;
+
+    function addOption() {
+        var option = document.getElementById("dhcpoptions0");
+        var parent = option.parentNode;
+        var parentdel = document.getElementById("del");
+        var newdel = document.createElement("button");
+        var newinput = document.createElement("input");
+        countOption += 1;
+        newinput.setAttribute("class", "form-control");
+        newinput.setAttribute("id", "dhcpoptions" + countOption);
+        newinput.setAttribute("type", "text");
+        parent.appendChild(newinput);
+        newdel.setAttribute("class", "btn-danger btn");
+        newdel.setAttribute("onclick", "delOption(this)");
+        newdel.setAttribute("id", countOption + "del");
+        newdel.innerHTML = "删除";
+        parentdel.appendChild(newdel);
+        console.log(parentdel.childNodes, parent.childNodes);
+    };
+
+    function delOption(obj) {
+        var delid = obj.getAttribute("id");
+        console.log(parseFloat(delid));
+        var no = parseFloat(delid);
+        var delbtn = document.getElementById(delid);
+        delbtn.parentNode.removeChild(delbtn);
+        var delinput = document.getElementById("dhcpoptions" + no);
+        delinput.parentNode.removeChild(delinput);
+    };
+
+    function dhcpSwitch() {
+        console.log(document.getElementById("switchdhcp").checked);
+        if (document.getElementById("switchdhcp").checked) {
+            document.getElementById("dhcpOption").style.display = 'block';
+        } else {
+            document.getElementById("dhcpOption").style.display = 'none';
+        }
+
+    };//]]>
+    </script>
+<%+footer%>

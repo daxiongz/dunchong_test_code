@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>first example</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<script src="../dist/avalon.js"></script>
+	<script>
+		var vm = avalon.define({
+			$id: "test",
+			name: "daxiong",
+			array: [11,22,33]
+		})
+		setTimeout(function(){
+			vm.array.set(0,444)
+		}, 3000)
+	</script>
+</head>
+<body ms-controller="test"> <!-- avalon2.1.15后可直接使用 ：XXX 短命令 -->
+	<input ms-duplex="@name">
+	<p>hello,{{@name}}!</p>
+	<ul>
+		<li ms-for="($index,el) in @array">{{$index}}--{{el}}</li>
+	</ul>
+</body>
+</html>

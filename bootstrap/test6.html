@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!-- <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script> -->
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<style>
+		.box1{
+			width: 200px;
+			height: 200px;
+			border: 1px solid #000;
+			background-color: #ccc;
+			text-align: center;
+		}
+		.box2{
+			width: 200px;
+			height: 200px;
+			background-color: blue;
+			box-shadow: 1px 1px #000;
+			float: right;
+		}
+		.box3{
+			float: right;
+			width: 200px;
+			height: 200px;
+		}
+		div.box3{
+			color: red;
+		}
+		.box3.box4{
+
+		}
+		.child{
+			width: 100px;
+			display: inline;
+			color: red;
+		}
+		.abc{
+			font: 12px/2 arial;
+		}
+	</style>
+</head>
+<body>
+	<input type="text" id="inInfo">
+	<button onclick="print()">ok</button>
+	<a href="#">123</a>
+	<br><br>
+	<div class="box1">
+		<div class="child">1211</div>
+	</div>
+	<div id="test" 
+	class="box2" www="123"></div>
+	<div class="box3 box4">121211</div>
+	<p class="abc">12121</p>
+	<script>
+	function print(){
+		console.log($("#inInfo").val());
+		$("#inInfo").val("");
+		console.log($(".box2").attr("www"));
+		console.log(document.getElementById("test").getAttribute("www"));
+		$("#test").attr("data-op","a121dd");
+		$("#test").data("op","55555");
+		var a = $("#test").data("op");
+		console.log(a);
+		console.log($("#test").attr("data-op"));
+	}
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WAN口配置</title>
+    <link rel="stylesheet" href="css/public.css">
+    <style>
+
+    </style>
+    <script type="text/javascript">
+    var cssEl = document.createElement('style');
+    document.documentElement.firstElementChild.appendChild(cssEl);
+
+    function setPxPerRem() {
+        var dpr = window.devicePixelRatio || 1;
+        //把viewport分成10份的rem，html标签的font-size设置为1rem的大小;
+        var pxPerRem = document.documentElement.clientWidth * dpr / 10;
+        cssEl.innerHTML = 'html{font-size:' + pxPerRem + 'px!important;}';
+        console.log(dpr);
+    }
+    setPxPerRem();
+    </script>
+</head>
+
+<body>
+    <div class="wrap">
+        <span class="btn-title">WAN口设置</span>
+        <hr />
+        <div class="line">
+            <span class="left">协议：</span>
+            <div class="right">
+                <select name="protocol" id="protocol" onchange="sel()">
+                    <option value="DHCP" selected="true">DHCP客户端</option>
+                    <option value="static">静态地址</option>
+                    <option value="PPPoE">PPPoE</option>
+                </select>
+                <div class="savebtn">
+                    <button class="save-btn">保存</button>
+                </div>
+            </div>
+        </div>
+        <div id="dhcpwan">
+            <div class="setWan">
+                <div class="line">
+                    <span class="left">请求DHCP时发送的主机名：</span>
+                    <input class="right" type="text" placeholder="Dunchong" id="hostname" />
+                </div>
+                <div class="line">
+                    <span class="left">设置MTU：</span>
+                    <input class="right" type="text" placeholder="1500" id="setMTU">
+                </div>
+                <div class="line">
+                    <span class="left">克隆MAC地址：</span>
+                    <input class="right" type="text" id="MACclone">
+                </div>
+                <div class="line">
+                    <span class="left">主DNS服务器：</span>
+                    <div class="right">
+                        <input type="text" id="primaryDNS">
+                        <span class="pageHint">（可选）</span>
+                    </div>
+                </div>
+                <div class="line">
+                    <span class="left">辅DNS服务器：</span>
+                    <div class="right">
+                        <input type="text" id="secondaryDNS">
+                        <span class="pageHint">（可选）</span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="wanStatus">
+                <span class="btn-title">WAN口设置</span>
+                <hr />
+                <div class="line">
+                    <span class="left">连接方式：</span>
+                    <div class="right">
+                        <span id="protSta">DHCP</span>
+                        <div class="opbtn">
+                            <button class="connect-btn">释放</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="line">
+                    <span class="left">链路状态：</span>
+                    <div class="right">
+                        <span>已连接</span>
+                    </div>
+                </div>
+                <div class="line">
+                    <span class="left">IP地址：</span>
+                    <div class="right"><span id="ipSta">10.2.3.3</span></div>
+                </div>
+                <div class="line">
+                    <span class="left">子网掩码：</span>
+                    <div class="right"><span id="maskSta">255.0.0.0</span></div>
+                </div>
+                <div class="line">
+                    <span class="left">网关地址：</span>
+                    <div class="right"><span id="gatewaySta">114.114.114.114</span></div>
+                </div>
+                <div class="line">
+                    <span class="left">主DNS服务器：</span>
+                    <div class="right"><span id="praDNSSta">8.8.8.8</span></div>
+                </div>
+                <div class="line">
+                    <span class="left">辅DNS服务器：</span>
+                    <div class="right"><span id="secDNSSta">1.1.1.1</span></div>
+                </div>
+                <div class="line">
+                    <span class="left">MAC地址：</span>
+                    <div class="right"><span id="macSta">00:11:11:11:11:11</span></div>
+                </div>
+                <div class="line">
+                    <span class="left">DHCP剩余时间：</span>
+                    <div class="right"><span id="DHCPTimeSta">0h 9m 2s</span></div>
+                </div>
+            </div>
+        </div>
+        <div id="pppoewan" style="display: none;">
+            <div class="setWan">
+                <div class="line">
+                    <span class="left">PAP/CHAP用户名：</span>
+                    <input class="right" type="text"  id="papname" />
+                </div>
+                <div class="line">
+                    <span class="left">PAP/CHAP密码：</span>
+                    <input class="right" type="text"  id="papkey">
+                </div>
+                <div class="line">
+                    <span class="left">设置MTU：</span>
+                    <input class="right" type="text" placeholder="1500" id="MTUpppoe">
+                </div>
+                <div class="line">
+                    <span class="left">主DNS服务器：</span>
+                    <div class="right">
+                        <input type="text" id="primaryDNSpppoe">
+                        <span class="pageHint">（可选）</span>
+                    </div>
+                </div>
+                <div class="line">
+                    <span class="left">辅DNS服务器：</span>
+                    <div class="right">
+                        <input type="text" id="secondaryDNSpppoe">
+                        <span class="pageHint">（可选）</span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="wanStatus">
+                <span class="btn-title">WAN口设置</span>
+                <hr />
+                <div class="line">
+                    <span class="left">连接方式：</span>
+                    <div class="right">
+                        <span id="protStapppoe">pppoe</span>
+                        <div class="opbtn">
+                            <button class="connect-btn">释放</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="line">
+                    <span class="left">链路状态：</span>
+                    <div class="right">
+                        <span>连接中</span>
+                    </div>
+                </div>
+                <div class="line">
+                    <span class="left">IP地址：</span>
+                    <div class="right"><span id="ipStapppoe">10.2.3.3</span></div>
+                </div>
+                <div class="line">
+                    <span class="left">子网掩码：</span>
+                    <div class="right"><span id="maskStapppoe">255.0.0.0</span></div>
+                </div>
+                <div class="line">
+                    <span class="left">网关地址：</span>
+                    <div class="right"><span id="gatewayStapppoe">114.114.114.114</span></div>
+                </div>
+                <div class="line">
+                    <span class="left">主DNS服务器：</span>
+                    <div class="right"><span id="praDNSStapppoe">8.8.8.8</span></div>
+                </div>
+                <div class="line">
+                    <span class="left">辅DNS服务器：</span>
+                    <div class="right"><span id="secDNSStapppoe">1.1.1.1</span></div>
+                </div>
+                <div class="line">
+                    <span class="left">MAC地址：</span>
+                    <div class="right"><span id="macStapppoe">00:11:11:11:11:11</span></div>
+                </div>
+                <div class="line">
+                    <span class="left">DHCP剩余时间：</span>
+                    <div class="right"><span id="DHCPTimeStapppoe">0h 9m 2s</span></div>
+                </div>
+            </div>
+        </div>
+        <div id="staticwan" style="display: none;">
+            <div class="setWan">
+                <div class="line">
+                    <span class="left">IPv4地址：</span>
+                    <input class="right" type="text"  id="ipv4static" />
+                </div>
+                <div class="line">
+                    <span class="left">IPv4子网掩码：</span>
+                    <div class="right">
+                    	<select name="mask" id="maskstatic" onchange="mask()">
+	                    	<option value="255.255.255.0">255.255.255.0</option>
+	                    	<option value="255.255.0.0">255.255.0.0</option>
+	                    	<option value="255.0.0.0">255.0.0.0</option>
+	                    	<option value="othermask">自定义</option>
+	                    </select>
+	                    <input type="text" id="othermask" placeholder="自定义mask" style="display: none;">
+                    </div>
+                </div>
+                <div class="line">
+                    <span class="left">IPv4网关：</span>
+                    <input class="right" type="text" id="gatewaystatic">
+                </div>
+                <div class="line">
+                    <span class="left">设置MTU：</span>
+                    <input class="right" type="text" placeholder="1500" id="MTUstatic">
+                </div>
+                <div class="line">
+                    <span class="left">克隆MAC地址：</span>
+                    <input class="right" type="text" id="macstatic">
+                </div>
+                <div class="line">
+                    <span class="left">主DNS服务器：</span>
+                    <div class="right">
+                        <input type="text" id="primaryDNSstatic">
+                        <span class="pageHint">（可选）</span>
+                    </div>
+                </div>
+                <div class="line">
+                    <span class="left">辅DNS服务器：</span>
+                    <div class="right">
+                        <input type="text" id="secondaryDNSstatic">
+                        <span class="pageHint">（可选）</span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+	function sel(){
+		let objs = document.getElementById("protocol");
+		let value = objs.options[objs.selectedIndex].value;
+		console.log(value);
+		switch (value) {
+			case "DHCP":
+				document.getElementById("dhcpwan").style.display = 'block';
+				document.getElementById("staticwan").style.display = 'none';
+				document.getElementById("pppoewan").style.display = 'none';
+				alert("确定要转换协议吗？");
+				break;
+			case "static":
+				document.getElementById("staticwan").style.display = 'block';
+				document.getElementById("dhcpwan").style.display = 'none';
+				document.getElementById("pppoewan").style.display = 'none';
+				alert("确定要转换协议吗？");
+				break;
+			case "PPPoE":
+				document.getElementById("pppoewan").style.display = 'block';
+				document.getElementById("dhcpwan").style.display = 'none';
+				document.getElementById("staticwan").style.display = 'none';
+				alert("确定要转换协议吗？");
+				break;		
+		}
+	};
+	function mask(){
+		var objs = document.getElementById("maskstatic");
+		let value = objs.options[objs.selectedIndex].value;
+		if(value == "othermask"){
+			document.getElementById("othermask").style.display = "inline";
+		}
+	};
+</script>
+</html>
