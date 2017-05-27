@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.wrappers{
+    width: 100%;
+    margin: 0 auto;
+}
+
+.line {
+    width: 100%;
+    font-size: .16rem;
+}
+
+.le {
+    float: left;
+    width: 40%;
+    text-align: right;
+    height: .2rem;
+    color: #777;
+}
+
+.mid {
+    float: left;
+    width: 28%;
+    margin-left: 2%;
+}
+
+.rig {
+    float: left;
+    width: 30%;
+    line-height: .25rem;
+}
+
+.clear {
+    clear: both;
+}
+
+.form-control {
+    width: 90%;
+    height: 28px;
+    margin: .02rem 0 0 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+    padding: 2px 5px;
+}
+#dhcpswitch{
+	height: 30px;
+}
+.btn {
+    display: inline-block;
+    margin: .02rem 0 0 0;
+    height: 34px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.title-btn {
+    margin: 10px 0 0 10px;
+    font-size: .16rem;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    cursor: default;
+    padding: 2px;
+}
+
+.btn-save {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.btn-add {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+
+.btn-danger {
+    display: block;
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+.notice {
+    width: 90%;
+    margin: 0 auto;
+    font-size: .14rem;
+    color: #31708f;
+}
+hr{
+	margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+.hint{
+	color: #8a6d3b;
+}

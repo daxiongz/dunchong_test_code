@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>LAN口设置</title>
+    <link rel="stylesheet" href="css/public.css">
+    <style>
+
+    </style>
+    <script type="text/javascript">
+    var cssEl = document.createElement('style');
+    document.documentElement.firstElementChild.appendChild(cssEl);
+
+    function setPxPerRem() {
+        var dpr = window.devicePixelRatio || 1;
+        //把viewport分成10份的rem，html标签的font-size设置为1rem的大小;
+        var pxPerRem = document.documentElement.clientWidth * dpr / 10;
+        cssEl.innerHTML = 'html{font-size:' + pxPerRem + 'px!important;}';
+        console.log(dpr);
+    }
+    setPxPerRem();
+    </script>
+</head>
+
+<body>
+    <div class="wrap">
+        <span class="btn-title">WAN口设置</span>
+        <hr />
+        <div class="line">
+            <span class="left">IP地址：</span>
+            <div class="right">
+                <input type="text">
+                <div class="savebtn">
+                    <button class="save-btn">保存</button>
+                </div>
+            </div>
+        </div>
+        <div class="line">
+            <span class="left">子网掩码：</span>
+            <input class="right" type="text"id="mask" />
+        </div>
+        <div class="line">
+            <span class="left">DHCP开启：</span>
+            <input class="right" type="checkbox" id="dhcpswitch" checked />
+        </div>
+        <div id="dhcpopt">
+            <div class="line">
+                <span class="left">起始地址：</span>
+                <input class="right" type="text" id="startadd" />
+            </div>
+            <div class="line">
+                <span class="left">结束地址：</span>
+                <input class="right" type="text" id="endadd" />
+            </div>
+            <div class="line">
+                <span class="left">租用时间：</span>
+                <input class="right" type="text" id="renttime" />
+                <span class="pageHint">分钟</span>
+            </div>
+            <div class="line">
+                <span class="left">DHCP-OPTIONS：</span>
+                <input class="right" type="text" id="dhcpoption0" />
+            </div>
+            <div class="line">
+            	<span class="left"></span>
+            	<span class="right">格式1,10.2.3.2</span>
+            	<button >添加</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

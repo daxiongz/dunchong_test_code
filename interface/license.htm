@@ -1,0 +1,272 @@
+<%+header%>
+    <link rel="stylesheet" href="<%=resource%>/css/3row.css" />
+    <script type="text/javascript">
+    //<![CDATA[
+    var cssEl = document.createElement('style');
+    document.documentElement.firstElementChild.appendChild(cssEl);
+
+    function setPxPerRem() {
+        var dpr = window.devicePixelRatio || 1;
+        //把viewport分成10份的rem，html标签的font-size设置为1rem的大小;
+        var pxPerRem = document.documentElement.clientWidth * dpr / 10;
+        cssEl.innerHTML = 'html{font-size:' + pxPerRem + 'px!important;}';
+        console.log(dpr);
+    }
+    setPxPerRem(); //]]>
+    </script>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+}
+
+.wrappers {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.line {
+    width: 100%;
+    font-size: .11rem;
+    line-height: normal;
+}
+
+.le {
+    float: left;
+    width: 25%;
+    text-align: right;
+    height: .15rem;
+    color: #777;
+}
+
+.mid {
+    float: left;
+    width: 20%;
+    margin-left: 2%;
+}
+
+.rig {
+    float: left;
+    width: 30%;
+    line-height: .1rem;
+}
+
+.clear {
+    clear: both;
+}
+
+.form-control {
+    width: 90%!important;
+    height: 20px;
+    margin: .02rem 0 0 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+    padding: 2px 5px;
+}
+#dhcpswitch{
+    height: 20px;
+}
+.btn {
+    display: inline-block;
+    margin: .02rem 0 0 0;
+    height: 26px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.title-btn {
+    margin: 10px 0 0 10px;
+    font-size: .12rem;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    cursor: default;
+    padding: 2px;
+}
+
+.btn-save {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.btn-add {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+
+.btn-danger {
+    display: block;
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+.notice {
+    width: 90%;
+    margin: 0 auto;
+    font-size: .08rem;
+    color: #31708f;
+}
+hr{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+.hints{
+    color: #8a6d3b;
+}
+
+    </style>
+    <div class="wrappers">
+        <div class="line">
+            <button class="title-btn btn">LAN口设置</button>
+            <hr/>
+        </div>
+        <div class="line">
+            <div class="clear"></div>
+            <div class="le">
+                <span>IP地址：</span>
+            </div>
+            <div class="mid">
+                <input type="text" class="form-control" />
+            </div>
+            <div class="rig">
+                <button class="btn btn-save">保存</button>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="clear"></div>
+            <div class="le">
+                <span>子网掩码：</span>
+            </div>
+            <div class="mid">
+                <input type="text" class="form-control" />
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="clear"></div>
+            <div class="le">
+                <span>DHCP开启：</span>
+            </div>
+            <div class="mid">
+                <label>
+                    <input type="checkbox" id="dhcpswitch" checked="checked" onclick="fn()" />
+                </label>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div id="dhcpcont">
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>起始地址：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>结束地址：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>租用时间：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="rig">
+                    <span class="hints">分钟</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>DHCP-OPTIONS</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control" id="dhcpoptions0" />
+                </div>
+                <div class="rig" id="del"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le"></div>
+                <div class="mid">
+                    <p class="hints">格式：1,12.0.2.3</p>
+                </div>
+                <div class="rig">
+                    <button class="btn btn-add" onclick="addOption()">增加</button>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <hr/>
+        <div class="notice">
+            <p><span></span>注意</p>
+            <p>如果改变了LAN口的IP地址，您必须使用新的IP地址才能登陆路由器Web界面进行管理。</p>
+        </div>
+    </div>
+    <script>
+    //<![CDATA[
+    var countOption = 0;
+
+    function addOption() {
+        var option = document.getElementById("dhcpoptions0");
+        var parent = option.parentNode;
+        var parentdel = document.getElementById("del");
+        var newdel = document.createElement("button");
+        var newinput = document.createElement("input");
+        countOption += 1;
+        newinput.setAttribute("class", "form-control");
+        newinput.setAttribute("id", "dhcpoptions" + countOption);
+        newinput.setAttribute("type", "text");
+        parent.appendChild(newinput);
+        newdel.setAttribute("class", "btn-danger btn");
+        newdel.setAttribute("onclick", "delOption(this)");
+        newdel.setAttribute("id", countOption + "del");
+        newdel.innerHTML = "删除";
+        parentdel.appendChild(newdel);
+        console.log(parentdel.childNodes, parent.childNodes);
+    };
+
+    function delOption(obj) {
+        var delid = obj.getAttribute("id");
+        console.log(parseFloat(delid));
+        var no = parseFloat(delid);
+        var delbtn = document.getElementById(delid);
+        delbtn.parentNode.removeChild(delbtn);
+        var delinput = document.getElementById("dhcpoptions" + no);
+        delinput.parentNode.removeChild(delinput);
+    };
+    function fn() {
+            if (document.getElementById("dhcpswitch").checked) {
+                document.getElementById("dhcpcont").style.display = "block";
+            } else {
+                document.getElementById("dhcpcont").style.display = "none";
+            }
+        }
+        //]]>
+    </script>
+<%+footer%>

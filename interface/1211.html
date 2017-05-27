@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/3row.css">
+</head>
+<script type="text/javascript">
+var cssEl = document.createElement('style');
+document.documentElement.firstElementChild.appendChild(cssEl);
+
+function setPxPerRem() {
+    var dpr = window.devicePixelRatio || 1;
+    //把viewport分成10份的rem，html标签的font-size设置为1rem的大小;
+    var pxPerRem = document.documentElement.clientWidth * dpr / 10;
+    cssEl.innerHTML = 'html{font-size:' + pxPerRem + 'px!important;}';
+    console.log(dpr);
+}
+setPxPerRem();
+</script>
+
+<body>
+    <div class="wrapper">
+        <div class="line">
+            <button class="title-btn btn">LAN口设置</button>
+            <hr>
+        </div>
+        <div class="line">
+            <div class="clear"></div>
+            <div class="le">
+                <span>IP地址：</span>
+            </div>
+            <div class="mid">
+                <input type="text" class="form-control">
+            </div>
+            <div class="rig">
+                <button class="btn btn-save">保存</button>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="clear"></div>
+            <div class="le">
+                <span>子网掩码：</span>
+            </div>
+            <div class="mid">
+                <input type="text" class="form-control">
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="clear"></div>
+            <div class="le">
+                <span>DHCP开启：</span>
+            </div>
+            <div class="mid">
+                <label>
+                    <input type="checkbox" id="dhcpswitch" checked onclick="fn()">
+                </label>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div id="dhcpcont">
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>起始地址：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control">
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>结束地址：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control">
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>租用时间：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control">
+                </div>
+                <div class="rig">
+                    <span class="hint">分钟</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>DHCP-OPTIONS</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control" id="dhcpoptions0">
+                </div>
+                <div class="rig" id="del"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le"></div>
+                <div class="mid">
+                    <p class="hint">格式：1,12.0.2.3</p>
+                </div>
+                <div class="rig">
+                    <button class="btn btn-add" onclick="addOption()">增加</button>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <hr>
+        <div class="notice">
+            <p>&nbsp&nbsp&nbsp&nbsp注意：</p>
+            <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp如果改变了LAN口的IP地址，您必须使用新的IP地址才能登陆路由器Web界面进行管理。</p>
+        </div>
+    </div>
+</body>
+<script>
+var countOption = 0;
+
+function addOption() {
+    var option = document.getElementById("dhcpoptions0");
+    var parent = option.parentNode;
+    var parentdel = document.getElementById("del");
+    var newdel = document.createElement("button");
+    var newinput = document.createElement("input");
+    countOption += 1;
+    newinput.setAttribute("class", "form-control");
+    newinput.setAttribute("id", "dhcpoptions" + countOption);
+    newinput.setAttribute("type", "text");
+    parent.appendChild(newinput);
+    newdel.setAttribute("class", "btn-danger btn");
+    newdel.setAttribute("onclick", "delOption(this)");
+    newdel.setAttribute("id", countOption + "del");
+    newdel.innerHTML = "删除";
+    parentdel.appendChild(newdel);
+    console.log(parentdel.childNodes, parent.childNodes);
+};
+
+function delOption(obj) {
+    var delid = obj.getAttribute("id");
+    console.log(parseFloat(delid));
+    var no = parseFloat(delid);
+    var delbtn = document.getElementById(delid);
+    delbtn.parentNode.removeChild(delbtn);
+    var delinput = document.getElementById("dhcpoptions" + no);
+    delinput.parentNode.removeChild(delinput);
+};
+var fn = () => {
+    if (document.getElementById("dhcpswitch").checked) {
+        document.getElementById("dhcpcont").style.display = "block";
+    } else {
+        document.getElementById("dhcpcont").style.display = "none";
+    }
+}
+</script>
+
+</html>
