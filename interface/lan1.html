@@ -22,7 +22,7 @@ setPxPerRem();
 </script>
 
 <body>
-    <div class="wrapper">
+    <div class="wrappers">
         <div class="line">
             <button class="title-btn btn">LAN口设置</button>
             <hr>
@@ -56,9 +56,9 @@ setPxPerRem();
                 <span>DHCP开启：</span>
             </div>
             <div class="mid">
-                <label>
+                <!-- <label> -->
                     <input type="checkbox" id="dhcpswitch" checked onclick="fn()">
-                </label>
+                <!-- </label> -->
             </div>
             <div class="clear"></div>
         </div>
@@ -92,14 +92,14 @@ setPxPerRem();
                     <input type="text" class="form-control">
                 </div>
                 <div class="rig">
-                    <span class="hint">分钟</span>
+                    <span class="hints">分钟</span>
                 </div>
                 <div class="clear"></div>
             </div>
             <div class="line">
                 <div class="clear"></div>
                 <div class="le">
-                    <span>DHCP-OPTIONS</span>
+                    <span>DHCP-OPTIONS：</span>
                 </div>
                 <div class="mid">
                     <input type="text" class="form-control" id="dhcpoptions0">
@@ -111,7 +111,7 @@ setPxPerRem();
                 <div class="clear"></div>
                 <div class="le"></div>
                 <div class="mid">
-                    <p class="hint">格式：1,12.0.2.3</p>
+                    <p class="hints">格式：1,12.0.2.3</p>
                 </div>
                 <div class="rig">
                     <button class="btn btn-add" onclick="addOption()">增加</button>

@@ -1,7 +1,12 @@
-<%+header%>
-    <link rel="stylesheet" href="<%=resource%>/css/3row.css" />
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/3row.css">
     <script type="text/javascript">
-    //<![CDATA[
     var cssEl = document.createElement('style');
     document.documentElement.firstElementChild.appendChild(cssEl);
 
@@ -12,13 +17,16 @@
         cssEl.innerHTML = 'html{font-size:' + pxPerRem + 'px!important;}';
         console.log(dpr);
     }
-    setPxPerRem(); //]]>
+    setPxPerRem();
     </script>
     <style>
     .btn-stat-op {
         margin-left: -30%;
     }
     </style>
+</head>
+
+<body>
     <div class="wrappers">
         <div class="line">
             <button class="btn title-btn">WAN设置</button>
@@ -281,14 +289,14 @@
                 <div class="clear"></div>
             </div>
             <div class="line">
-                <div class="clear"></div>
-                <div class="le">
-                    <span>子网掩码</span>
-                </div>
-                <div class="mid">
-                    <span class="mid-span">255.0.0.0</span>
-                </div>
-                <div class="clear"></div>
+            	<div class="clear"></div>
+            	<div class="le">
+            		<span>子网掩码</span>
+            	</div>
+            	<div class="mid">
+            		<span class="mid-span">255.0.0.0</span>
+            	</div>
+            	<div class="clear"></div>
             </div>
             <div class="line">
                 <div class="clear"></div>
@@ -358,26 +366,26 @@
                     <span>IPv4子网掩码：</span>
                 </div>
                 <div class="mid">
-                    <select name="static-mask" id="static-mask">
-                        <option value="255.255.255.255">255.255.255.255</option>
-                        <option value="255.255.255.0">255.255.255.0</option>
-                        <option value="255.255.0.0">255.255.0.0</option>
-                        <option value="255.0.0.0">255.0.0.0</option>
-                        <option value="custom">自定义</option>
-                    </select>
+                    <select name="static-mask" id="static-mask" onchange="mask()">
+                    	<option value="255.255.255.255">255.255.255.255</option>
+                    	<option value="255.255.255.0">255.255.255.0</option>
+                    	<option value="255.255.0.0">255.255.0.0</option>
+                    	<option value="255.0.0.0">255.0.0.0</option>
+                    	<option value="custom">自定义</option>
+                    </select>	
                     <input type="text" class="form-control" id="othermask" placeholder="自定义子网掩码" style="display: none;"></input>
                 </div>
                 <div class="clear"></div>
             </div>
             <div class="line">
-                <div class="clear"></div>
-                <div class="le">
-                    <span>IPv4网关：</span>
-                </div>
-                <div class="mid">
-                    <input type="text" class="form-control"></input>
-                </div>
-                <div class="clear"></div>
+            	<div class="clear"></div>
+            	<div class="le">
+            		<span>IPv4网关：</span>
+            	</div>
+            	<div class="mid">
+            		<input type="text" class="form-control"></input>
+            	</div>
+            	<div class="clear"></div>
             </div>
             <div class="line">
                 <div class="clear"></div>
@@ -390,12 +398,12 @@
                 <div class="clear"></div>
             </div>
             <div class="line">
-                <div class="le">
-                    <span>克隆MAC地址：</span>
-                </div>
-                <div class="mid">
-                    <input type="text" class="form-control"></input>
-                </div>
+            	<div class="le">
+            		<span>克隆MAC地址：</span>
+            	</div>
+            	<div class="mid">
+            		<input type="text" class="form-control"></input>
+            	</div>
             </div>
             <div class="line">
                 <div class="clear"></div>
@@ -425,37 +433,36 @@
             </div>
         </div>
     </div>
-    <script>
-    //<![CDATA[
-    function changeProt() {
-        let objs = document.getElementById("protocol");
-        let value = objs.options[objs.selectedIndex].value;
-        console.log(value);
-        switch (value) {
-            case "DHCP":
-                document.getElementById("dhcp-cont").style.display = 'block';
-                document.getElementById("static-cont").style.display = 'none';
-                document.getElementById("pppoe-cont").style.display = 'none';
-                break;
-            case "STATIC":
-                document.getElementById("static-cont").style.display = 'block';
-                document.getElementById("dhcp-cont").style.display = 'none';
-                document.getElementById("pppoe-cont").style.display = 'none';
-                break;
-            case "PPPOE":
-                document.getElementById("pppoe-cont").style.display = 'block';
-                document.getElementById("dhcp-cont").style.display = 'none';
-                document.getElementById("static-cont").style.display = 'none';
-                break;
-        }
-    };
-    function mask(){
-        var objs = document.getElementById("static-mask");
-        let value = objs.options[objs.selectedIndex].value;
-        if(value == "custom"){
-            document.getElementById("othermask").style.display = "block";
-        }
-    };
-    //]]>
-    </script>
-    <%+footer%>
+</body>
+<script>
+	function changeProt(){
+		let objs = document.getElementById("protocol");
+		let value = objs.options[objs.selectedIndex].value;
+		console.log(value);
+		switch (value) {
+			case "DHCP":
+				document.getElementById("dhcp-cont").style.display = 'block';
+				document.getElementById("static-cont").style.display = 'none';
+				document.getElementById("pppoe-cont").style.display = 'none';
+				break;
+			case "STATIC":
+				document.getElementById("static-cont").style.display = 'block';
+				document.getElementById("dhcp-cont").style.display = 'none';
+				document.getElementById("pppoe-cont").style.display = 'none';
+				break;
+			case "PPPOE":
+				document.getElementById("pppoe-cont").style.display = 'block';
+				document.getElementById("dhcp-cont").style.display = 'none';
+				document.getElementById("static-cont").style.display = 'none';
+				break;		
+		}
+	};
+	function mask(){
+		var objs = document.getElementById("static-mask");
+		let value = objs.options[objs.selectedIndex].value;
+		if(value == "custom"){
+			document.getElementById("othermask").style.display = "block";
+		}
+	};
+</script>
+</html>
