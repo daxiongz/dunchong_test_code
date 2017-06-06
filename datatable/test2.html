@@ -1,75 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>jquery.datatable2</title>
-	<link rel="stylesheet" href="css/jquery.dataTables.css">
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery.dataTables.js"></script>
+    <meta charset="UTF-8">
+    <title>jquery.datatable2</title>
+    <link rel="stylesheet" href="css/jquery.dataTables.css">
+    <link rel="stylesheet" href="css/3row.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.dataTables.js"></script>
+    <style>
+    	.addf{
+    		position: absolute;
+    		top: 30%;
+    		left: 40%;
+    		width: 500px;
+    		border: 1px solid #ccc;
+    	}
+		.addf-head{
+			height: 30px;
+			background-color: #1f2d30;
+			position: relative;
+		}
+		
+    </style>
+    <script type="text/javascript">
+    //<![CDATA[
+    var cssEl = document.createElement('style');
+    document.documentElement.firstElementChild.appendChild(cssEl);
+
+    function setPxPerRem() {
+        var dpr = window.devicePixelRatio || 1;
+        //把viewport分成10份的rem，html标签的font-size设置为1rem的大小;
+        var pxPerRem = document.documentElement.clientWidth * dpr / 10;
+        cssEl.innerHTML = 'html{font-size:' + pxPerRem + 'px!important;}';
+        console.log(dpr);
+    }
+    setPxPerRem(); //]]>
+    </script>
 </head>
+
 <body>
-<button id="addRow">add</button>
-	<table id="example" class="display">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Position</th>
-				<th>Salary</th>
-				<th>Office</th>
-				<th>option</th>
-			</tr>
-		</thead>
-	</table>
+<div class="wrappers">
+    <button id="addRow">add</button>
+    <div class="addf" id="addf" style="display: none;">
+    	<div class="addf-head">
+    		<a href="javascript:#;" id="close" class="close">关闭</a>
+    	</div>
+    	<div class="addf-cont">
+    		<div class="addf-line">
+    			<div class="clear"></div>
+    				<label for="aname" class="addf-line-le">name:</label>
+    				<div class="addf-line-mid">
+    					<input type="text" id="aname" class="form-control" />
+    				</div>
+    			<div class="clear"></div>
+    		</div>
+    		<div class="addf-line">
+    			<div class="clear"></div>
+    				<label for="aposition" class="addf-line-le">posiotion:</label>
+    				<div class="addf-line-mid">
+    					<input type="text" id="aposition" class="form-control" />
+    				</div>
+    			<div class="clear"></div>
+    		</div>
+    		<div class="addf-line">
+    			<div class="clear"></div>
+    				<label for="asalary" class="addf-line-le">salery:</label>
+    				<div class="addf-line-mid">
+    					<input type="text" id="asalary" class="form-control" />
+    				</div>
+    			<div class="clear"></div>
+    		</div>
+    		<div class="addf-line">
+    			<div class="clear"></div>
+    				<label for="aoffice" class="addf-line-le">office:</label>
+    				<div class="addf-line-mid">
+    					<input type="text" id="aoffice" class="form-control" />
+    				</div>
+    			<div class="clear"></div>
+    		</div>
+    		<div class="addf-line">
+    			<div class="clear"></div>
+    				<label for="aoption" class="addf-line-le">option:</label>
+    				<div class="addf-line-mid">
+    					<input type="text" id="aoption" class="form-control" />
+    				</div>
+    				
+    			<div class="clear"></div>
+    		</div>
+    	</div>
+    	<div class="addf-foot">
+    		<button class="btn-save btn sure">确定</button>
+    		<button class="btn-danger btn cansel">取消</button>
+    	</div>
+    </div>
+    <table id="example" class="display">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Salary</th>
+                <th>Office</th>
+                <th>option</th>
+            </tr>
+        </thead>
+    </table>
+</div>
 </body>
 <script>
-	jQuery(document).ready(function($) {
-		var data = [
-	        {
-	            "name":       "Tiger Nixon",
-	            "position":   "System Architect",
-	            "salary":     "$3,120",
-	            "start_date": "2011/04/25",
-	            "office":     "Edinburgh",
-	            "extn":       "5421"
-	        },
-	        {
-	            "name":       "Garrett Winters",
-	            "position":   "Director",
-	            "salary":     "$5,300",
-	            "start_date": "2011/07/25",
-	            "office":     "Edinburgh",
-	            "extn":       "8422"
-	        }
-	    ];
-		$("#example").DataTable({
-			data: data,
-			columns: [
-				{data: "name"},
-				{data: "position"},
-				{data: "salary"},
-				{data: "office"}
-			],
-			"columnDefs":[{
-				"targets": 4,
-				"data": "extn",
-				"render": function(data){
-					return '<button class="dele">'+data+'</button>';
-				}
-			}]
-		});
-		var table = $("#example").DataTable();
-		$("#addRow").click(function() {
-			table.row.add({
-				"name": "aiong",
-				"position": "xian",
-				"salary": "7000",
-				"office": "dunchong",
-				"extn": "121"
-			}).draw();
-		});
-		$(".dele").click(function() {
-			table.row($(this).parents("tr")).remove().draw();
-		});
-	});
+jQuery(document).ready(function($) {
+	function showAddf(){
+		$("#addf").css("display" ,"block");
+	};
+	function closeAddf(){
+		$("#addf").css("display",  "none");
+	}
+
+    var data = [{
+        "name": "Tiger Nixon",
+        "position": "System Architect",
+        "salary": "$3,120",
+        "start_date": "2011/04/25",
+        "office": "Edinburgh",
+        "extn": "5421"
+    }, {
+        "name": "Garrett Winters",
+        "position": "Director",
+        "salary": "$5,300",
+        "start_date": "2011/07/25",
+        "office": "Edinburgh",
+        "extn": "8422"
+    }];
+    $("#example").DataTable({
+        data: data,
+        columns: [{
+            data: "name"
+        }, {
+            data: "position"
+        }, {
+            data: "salary"
+        }, {
+            data: "office"
+        }],
+        "columnDefs": [{
+            "targets": 4,
+            "data": "extn",
+            "render": function(data) {
+                return '<button class="dele">' + data + '</button>';
+            }
+        }]
+    });
+    var table = $("#example").DataTable();
+    
+    $(".dele").click(function() {
+        table.row($(this).parents("tr")).remove().draw();
+    });
+    $("#addRow").click(function() {
+    	showAddf();
+    });
+    $("#close").click(function() {
+    	closeAddf();
+    });
+    $(".cancel").click(function() {
+    	closeAddf();
+    });
+    $(".sure").click(function() {
+    	closeAddf();
+    });
+});
 </script>
+
 </html>
