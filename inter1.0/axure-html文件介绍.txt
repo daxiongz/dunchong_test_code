@@ -1,0 +1,6 @@
+0、可以忽略start、start_c_1、start_g_0三个页面；index页面是所有页面在一起的页面总览。
+1、wan-dhcp、wan-pppoe、wan-static 三个页面是wan口三种不同协议下的配置和状态页面。
+2、lan 页面是lan口设置页面。
+3、dhcp-list、dhcp-server、dhcp-static 三个页面是dhcp列表、dhcp服务器、静态地址分配页面，添加及修改等按钮也是可以点击查看，有相应的交互效果。dhcp-server-advanced、
+dhcp-server-edit是dhcp服务器页面中的修改弹窗子页面；dhcp-static-add、dhcp-static-edit是静态地址分配页面中的添加修改弹窗子页面。
+4、vlan-add、port-vlan 两个页面是vlan相关页面，添加及修改等按钮也是可以点击查看，有相应的交互效果。

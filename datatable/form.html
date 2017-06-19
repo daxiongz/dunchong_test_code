@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+</head>
+<body>
+	<form action="#" onsubmit="check()">
+		<input type="text" />
+		<input type="text">
+		<input type="submit">
+	</form>
+</body>
+<script>
+	function check () {
+		var alinput = document.getElementsByTagName("input");
+		var firinput = alinput[0];
+		console.log(firinput);
+		if (firinput.value == "") {
+			alert("null");
+			/*return false;*/
+		}
+		/*return true;*/
+	}
+</script>
+</html>
