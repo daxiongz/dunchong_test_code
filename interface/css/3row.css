@@ -49,6 +49,17 @@
         font-size: 14px;
         padding: 2px 5px;
     }
+
+    .table-form-control{
+        width: 20%!important;
+        height: 18px;
+        margin: .02rem 0 0 0;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        padding: 2px 5px;
+    }
     
     #dhcpswitch {
         height: 18px;
