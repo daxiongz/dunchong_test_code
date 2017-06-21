@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="js/jquery.min.js"></script>
+</head>
+<body>
+	<input type="text" class="con" />
+	<input type="button" class="test" value="test" />
+	
+</body>
+<script>
+	$(document).ready(function() {
+		$(".test").click(function(){
+			alert($(".con").val());
+		})
+		
+	});
+</script>
+</html>
