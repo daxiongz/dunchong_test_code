@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>dhcp</title>
+    <link rel="stylesheet" href="css/jquery.dataTables.css">
+    <link rel="stylesheet" href="css/3row.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.dataTables.js"></script>
+    <script type="text/javascript">
+    var cssEl = document.createElement('style');
+    document.documentElement.firstElementChild.appendChild(cssEl);
+
+    function setPxPerRem() {
+        var dpr = window.devicePixelRatio || 1;
+        //把viewport分成10份的rem，html标签的font-size设置为1rem的大小;
+        var pxPerRem = document.documentElement.clientWidth * dpr / 10;
+        cssEl.innerHTML = 'html{font-size:' + pxPerRem + 'px!important;}';
+        console.log(dpr);
+    }
+    setPxPerRem();
+    </script>
+    <style>
+    
+    table {
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- table caption -->
+    <div class="line">
+        <button class="btn title-btn ">DHCP服务器</button>
+        <button class="btn title-btn default-btn">DHCP列表</button>
+        <button class="btn title-btn default-btn">静态地址分配</button>
+        <hr />
+    </div>
+    <div class="dhcp-ser-wrapper" style="display: none;">
+        <!-- dhcp table-tool -->
+        <div class="table-tool">
+            <div class="clear"></div>
+            <label class="seaop-lab">
+                <span>搜索选项：</span>
+                <select name="filter" id="dhcp-ser-sea-op" class="table-seclect">
+                    <option value="1">DHCP状态</option>
+                    <option value="2">接口名称</option>
+                </select>
+            </label>
+            <label class="seacon-lab">
+                <span>搜索内容：</span>
+                <input type="text" placeholder="搜索项" class="sea-con table-form-control" id="dhcp-ser-sea-con" />
+            </label>
+            <input type="button" value="搜索" id="dhcp-ser-sea" class="sea-btn btn btn-save" />
+            <input type="button" value="展示全部" class="display-all btn btn-save" />
+            <!-- <input type="button" value="清空表格" class="clear-tab" /> -->
+            <div class="clear"></div>
+        </div>
+        <!-- 页面弹窗 -->
+        <!-- 悬浮背景 -->
+        <div class="div-bgd" style="display: none;">
+            <div style="position: relative;width: 100%;height: 100%;">
+                <div style="position:fixed;background-color:#333;opacity:0.4;filter:alpha(opacity=0);width:100%;height:100%;"></div>
+            </div>
+        </div>
+        <!-- 高级设置 -->
+        <div class="addf" id="dhcp-ser-advanc" style="display: none;">
+            <div class="addf-head">
+                <a href="javascript:void(0);" id="close" class="close">关闭</a>
+            </div>
+            <div class="addf-line">
+                <div class="clear"></div>
+                <label class="addf-line-le">DHCP-OPTIONS: </label>
+                <div class="addf-line-mid">
+                    <input type="text" class="form-control" id="dhcpoptions0">
+                </div>
+                <div class="addf-line-rig" id="del"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="addf-line">
+                <div class="clear"></div>
+                <label class="addf-line-le"></label>
+                <div class="addf-line-mid">
+                    <p class="hints">格式：1,12.0.2.3</p>
+                </div>
+                <div class="addf-line-rig">
+                    <button class="btn btn-add" onclick="addOptions()">增加</button>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="addf-foot">
+                <button class="btn-save btn sure">确定</button>
+                <button class="btn-danger btn cansel">取消</button>
+            </div>
+        </div>
+        <!-- 修改 -->
+        <div class="addf" id="dhcp-ser-addf" style="display: none;">
+            <div class="addf-head">
+                <a href="javascript:void(0);" id="close" class="close">关闭</a>
+            </div>
+            <div class="addf-cont dhcp-ser-swi">
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aname" class="addf-line-le">DHCP：</label>
+                    <div class="addf-line-mid">
+                        <input type="checkbox" checked="checked" id="dhcpswitchs" onclick="swi()" />
+                    </div>
+                    <div class="addf-line-rig">
+                        <span class="hints">开启/关闭DHCP</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="addf-cont " id="dhcp-ser-cont">
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aname" class="addf-line-le">引用：</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="aname" class="form-control"></input>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aposition" class="addf-line-le">起始地址：</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="aposition" class="form-control" />
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="asalary" class="addf-line-le">结束地址:</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="asalary" class="form-control" />
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aoffice" class="addf-line-le">租用时间：</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="aoffice" class="form-control" />
+                    </div>
+                    <div class="addf-line-rig">
+                        <span class="hints">分钟</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aoffice" class="addf-line-le">主DNS服务器：</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="aoffice" class="form-control" />
+                    </div>
+                    <div class="addf-line-rig">
+                        <span class="hints">可选</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aoffice" class="addf-line-le">辅DNS服务器：</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="aoffice" class="form-control" />
+                    </div>
+                    <div class="addf-line-rig">
+                        <span class="hints">可选</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aoffice" class="addf-line-le">默认网关地址：</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="aoffice" class="form-control" />
+                    </div>
+                    <div class="addf-line-rig">
+                        <span class="hints">可选</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="addf-foot">
+                <button class="btn-save btn sure">确定</button>
+                <button class="btn-danger btn cansel">取消</button>
+            </div>
+        </div>
+        <!-- table内容 -->
+        <table id="dhcp-ser" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr class="tab-th">
+                    <th>序号</th>
+                    <th>DHCP开启</th>
+                    <th>接口名称</th>
+                    <th>起始地址</th>
+                    <th>结束地址</th>
+                    <th>租用时间（分钟）</th>
+                    <th>动作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>开</td>
+                    <td>lan</td>
+                    <td>1.1.1.1</td>
+                    <td>3.3.3.3</td>
+                    <td>125</td>
+                    <td>
+                        <a href="javascript:void(0);" class="advanc0">高级设置</a> |
+                        <a href="javascript:void(0);" class="edit0">修改</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>关</td>
+                    <td>wan</td>
+                    <td>1.1.1.1</td>
+                    <td>3.3.3.3</td>
+                    <td>125</td>
+                    <td>
+                        <a href="javascript:void(0);" class="advanc0">高级设置</a> |
+                        <a href="javascript:void(0);" class="edit0">修改</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="dhcp-list-wrapper">
+    	<!-- dhcp table-tool -->
+        <div class="table-tool">
+            <div class="clear"></div>
+            <label class="seaop-lab">
+                <span>搜索选项：</span>
+                <select name="filter" id="dhcp-list-sea-op" class="table-seclect">
+                    <option value="1">主机名</option>
+                    <option value="2">ipv4地址</option>
+                    <option value="3">MAC地址</option>
+                </select>
+            </label>
+            <label class="seacon-lab">
+                <span>搜索内容：</span>
+                <input type="text" placeholder="搜索项" class="sea-con table-form-control" id="dhcp-list-sea-con" />
+            </label>
+            <input type="button" value="搜索" id="dhcp-list-sea" class="sea-btn btn btn-save" />
+            <input type="button" value="展示全部" class="display-all btn btn-save" />
+            <!-- <input type="button" value="清空表格" class="clear-tab" /> -->
+            <div class="clear"></div>
+        </div>
+        <table id="dhcp-list" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr class="tab-th">
+                    <th>序号</th>
+                    <th>主机名</th>
+                    <th>ipv4地址</th>
+                    <th>MAC地址</th>
+                    <th>剩余租期（分钟）</th>
+                    <th>静态地址分配</th>
+                    <th>DHCP</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>DA</td>
+                    <td>1.2.3.6</td>
+                    <td>00:11:22:33:44:22</td>
+                    <td>21</td>
+                    <td><input type="button" class="btn btn-add" value="一键静态" /></td>
+                    <td>
+                        <input type="button"  class="btn btn-add default-btn" value="一键DHCP" disabled="disabled" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>xxx</td>
+                    <td>110.2.3.25</td>
+                    <td>00:11:22:33:44:22</td>
+                    <td>21</td>
+                    <td><input type="button" class="btn btn-add default-btn" value="一键静态" disabled="disabled" /></td>
+                    <td>
+                        <input type="button" class="btn btn-add" value="一键DHCP"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+function swi() {
+    console.log($("#dhcpswitchs").is(":checked"));
+    if ($("#dhcpswitchs").is(":checked")) {
+        $("#dhcp-ser-cont").css("display", "block");
+    } else {
+        $("#dhcp-ser-cont").css("display", "none");
+    }
+};
+//高级设置
+var countOption = 0;
+
+function addOptions() {
+    var option = document.getElementById("dhcpoptions0");
+    var parent = option.parentNode;
+    var parentdel = document.getElementById("del");
+    var newdel = document.createElement("button");
+    var newinput = document.createElement("input");
+    countOption += 1;
+    newinput.setAttribute("class", "form-control");
+    newinput.setAttribute("id", "dhcpoptions" + countOption);
+    newinput.setAttribute("type", "text");
+    parent.appendChild(newinput);
+    newdel.setAttribute("class", "btn-danger btn");
+    newdel.setAttribute("onclick", "delOption(this)");
+    newdel.setAttribute("id", countOption + "del");
+    newdel.innerHTML = "删除";
+    parentdel.appendChild(newdel);
+    console.log(parentdel.childNodes, parent.childNodes);
+};
+
+function delOption(obj) {
+    var delid = obj.getAttribute("id");
+    console.log(parseFloat(delid));
+    var no = parseFloat(delid);
+    var delbtn = document.getElementById(delid);
+    delbtn.parentNode.removeChild(delbtn);
+    var delinput = document.getElementById("dhcpoptions" + no);
+    delinput.parentNode.removeChild(delinput);
+};
+$(document).ready(function() {
+
+    //dhcp-server
+    var tableser = $("#dhcp-ser").DataTable({
+        "pagingType": "full_numbers",
+        'fnDrawCallback': function(table) { //跳转指定页
+            $("#dhcp-ser_paginate").append("  到第 <input type='text' id='changePageSer' class='input-text' style='width:25px;height:16px'> 页 <input type='button' value='GO' class='btn' id='#dataTable-btn-ser'/> ");
+            var oTable = $("#dhcp-ser").dataTable();
+            $('#dataTable-btn-ser').click(function(e) {
+                if ($("#changePageSer").val() && $("#changePageSer").val() > 0) {
+                    console.log($("#changePageSer").val());
+                    var redirectpage = $("#changePageSer").val() - 1;
+                } else {
+                    var redirectpage = 0;
+                }
+                oTable.fnPageChange(redirectpage);
+            });
+        },
+        language: { //多语言
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        }
+    });
+    //序号列
+    tableser.on('order.dt search.dt',
+        function() {
+            tableser.column(0, {
+                search: 'applied',
+                order: 'applied'
+            }).nodes().each(function(cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    //搜索和页面条目隐藏
+    $("#dhcp-ser_filter").css("display", "none");
+    $("#dhcp-ser_length").css("display", "none");
+    //自定义搜索
+    $("#dhcp-ser-sea").click(function(event) {
+        var sea_op = $("#dhcp-ser-sea-op").val();
+        /*console.log(sea_op);*/
+        var sea_con = $("#dhcp-ser-sea-con").val();
+        /*console.log(sea_con);*/
+        tableser
+            .column(sea_op)
+            .search(sea_con)
+            .draw();
+    });
+    //页面弹窗
+    function showAddf() {
+        $("#dhcp-ser-addf").css("display", "block");
+        $(".div-bgd").css("display", "block");
+    };
+
+    function closeAddf() {
+        $("#dhcp-ser-addf").css("display", "none");
+        $(".div-bgd").css("display", "none");
+    };
+
+    function showAdv() {
+        $("#dhcp-ser-advanc").css("display", "block");
+        $(".div-bgd").css("display", "block");
+    }
+
+    function closeAdv() {
+        $("#dhcp-ser-advanc").css("display", "none");
+        $(".div-bgd").css("display", "none");
+    }
+
+    $(".advanc0").click(function() {
+        showAdv();
+    })
+
+    $(".edit0").click(function() {
+        showAddf();
+    });
+
+    $(".close").click(function() {
+        closeAddf();
+        closeAdv();
+    });
+    $(".cansel").click(function() {
+        closeAddf();
+        closeAdv();
+    });
+    $(".sure").click(function() {
+        closeAddf();
+        closeAdv();
+    });
+    //dhcp-list
+    var tablelist = $("#dhcp-list").DataTable({
+        "pagingType": "full_numbers",
+        'fnDrawCallback': function(table) { //跳转指定页
+            $("#dhcp-list_paginate").append("  到第 <input type='text' id='changePageList' class='input-text' style='width:25px;height:16px'> 页 <input type='button' value='GO' class='btn' id='#dataTable-btn-list'/> ");
+            var oTable = $("#dhcp-list").dataTable();
+            $('#dataTable-btn-list').click(function(e) {
+                if ($("#changePageList").val() && $("#changePageList").val() > 0) {
+                    console.log($("#changePageList").val());
+                    var redirectpage = $("#changePageList").val() - 1;
+                } else {
+                    var redirectpage = 0;
+                }
+                oTable.fnPageChange(redirectpage);
+            });
+        },
+        language: { //多语言
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        }
+    });
+    //序号列
+    tablelist.on('order.dt search.dt',
+        function() {
+            tablelist.column(0, {
+                search: 'applied',
+                order: 'applied'
+            }).nodes().each(function(cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    //搜索和页面条目隐藏
+    $("#dhcp-list_filter").css("display", "none");
+    $("#dhcp-list_length").css("display", "none");
+    //自定义搜索
+    $("#dhcp-list-sea").click(function(event) {
+        var sea_op = $("#dhcp-list-sea-op").val();
+        /*console.log(sea_op);*/
+        var sea_con = $("#dhcp-list-sea-con").val();
+        /*console.log(sea_con);*/
+        tablelist
+            .column(sea_op)
+            .search(sea_con)
+            .draw();
+    });
+
+})
+</script>
+
+</html>

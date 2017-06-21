@@ -9,29 +9,30 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.dataTables.js"></script>
     <style>
-        .div-bgd{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 999; 
-        }
-    	.addf{
-    		position: absolute;
-    		top: 30%;
-    		left: 40%;
-    		width: 500px;
-    		border: 1px solid #ccc;
-            z-index: 1000;
-            background-color:#fff;
-    	}
-		.addf-head{
-			height: 30px;
-			background-color: #1f2d30;
-			position: relative;
-            z-index: 1000;
-		}
-		
+    .div-bgd {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+    }
+    
+    .addf {
+        position: absolute;
+        top: 30%;
+        left: 40%;
+        width: 500px;
+        border: 1px solid #ccc;
+        z-index: 1000;
+        background-color: #fff;
+    }
+    
+    .addf-head {
+        height: 30px;
+        background-color: #1f2d30;
+        position: relative;
+        z-index: 1000;
+    }
     </style>
     <script type="text/javascript">
     //<![CDATA[
@@ -50,60 +51,94 @@
 </head>
 
 <body>
-<div class="wrappers">
-    <button id="addRow">add</button>
-    <div class="div-bgd" style="display: none;">
-        <div style="position: relative;width: 100%;height: 100%;">
-            <div style="position:fixed;background-color:#333;opacity:0.4;filter:alpha(opacity=0);width:100%;height:100%;"></div>
+    <div class="wrappers">
+        <button id="addRow">add</button>
+        <div class="div-bgd" style="display: none;">
+            <div style="position: relative;width: 100%;height: 100%;">
+                <div style="position:fixed;background-color:#333;opacity:0.4;filter:alpha(opacity=0);width:100%;height:100%;"></div>
+            </div>
         </div>
-    </div>
-    <div class="addf" id="addf" style="display: none;">
-    	<div class="addf-head">
-    		<a href="javascript:void(0);" id="close" class="close">关闭</a>
-    	</div>
-    	<div class="addf-cont">
-    		<div class="addf-line">
-    			<div class="clear"></div>
-    				<label for="aname" class="addf-line-le">name:</label>
-    				<div class="addf-line-mid">
-    					<input type="text" id="aname" class="form-control" ></input>
-    				</div>
-    			<div class="clear"></div>
-    		</div>
-    		<div class="addf-line">
-    			<div class="clear"></div>
-    				<label for="aposition" class="addf-line-le">posiotion:</label>
-    				<div class="addf-line-mid">
-    					<input type="text" id="aposition" class="form-control" />
-    				</div>
-    			<div class="clear"></div>
-    		</div>
-    		<div class="addf-line">
-    			<div class="clear"></div>
-    				<label for="asalary" class="addf-line-le">salery:</label>
-    				<div class="addf-line-mid">
-    					<input type="text" id="asalary" class="form-control" />
-    				</div>
-    			<div class="clear"></div>
-    		</div>
-    		<div class="addf-line">
-    			<div class="clear"></div>
-    				<label for="aoffice" class="addf-line-le">office:</label>
-    				<div class="addf-line-mid">
-    					<input type="text" id="aoffice" class="form-control" />
-    				</div>
-    			<div class="clear"></div>
-    		</div>
-    		<div class="addf-line">
-    			<div class="clear"></div>
-    				<label for="aoption" class="addf-line-le">option:</label>
-    				<div class="addf-line-mid">
-    					<input type="text" id="aoption" class="form-control" />
-    				</div>
-    				
-    			<div class="clear"></div>
-    		</div>
-            <!-- <div class="addf-line">
+        <div class="addf" id="addf" style="display: none;">
+            <div class="addf-head">
+                <a href="javascript:void(0);" id="close" class="close">关闭</a>
+            </div>
+            <div class="addf-cont">
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aname" class="addf-line-le">name:</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="aname" class="form-control"></input>
+                    </div>
+                    <div class="addf-line-rig">
+                        <span class="hints">备注信息</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aposition" class="addf-line-le">posiotion:</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="aposition" class="form-control" />
+                    </div>
+                    <div class="addf-line-rig">
+                        <span class="hints">备注信息</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="asalary" class="addf-line-le">salery:</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="asalary" class="form-control" />
+                    </div>
+                    <div class="addf-line-rig">
+                        <span class="hints">备注信息</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aoffice" class="addf-line-le">office:</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="aoffice" class="form-control" />
+                    </div>
+                    <div class="addf-line-rig">
+                        <span class="hints">备注信息</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aoption" class="addf-line-le">option:</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="aoption" class="form-control" />
+                    </div>
+                    <div class="addf-line-rig">
+                        <span class="hints">备注信息</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label class="addf-line-le">DHCP-OPTIONS: </label>
+                    <div class="addf-line-mid">
+                        <input type="text" class="form-control" id="dhcpoptions0">
+                    </div>
+                    <div class="addf-line-rig" id="del"></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="line">
+                    <div class="clear"></div>
+                    <label class="addf-line-le"></label>
+                    <div class="addf-line-mid">
+                        <p class="hints">格式：1,12.0.2.3</p>
+                    </div>
+                    <div class="addf-line-rig">
+                        <button class="btn btn-add" onclick="addOp()">增加</button>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <!-- <div class="addf-line">
                 <div class="clear"></div>
                     <label for="aoption" class="addf-line-le">extern:</label>
                     <div class="addf-line-mid">
@@ -112,38 +147,85 @@
                     
                 <div class="clear"></div>
             </div> -->
-    	</div>
-    	<div class="addf-foot">
-    		<button class="btn-save btn sure">确定</button>
-    		<button class="btn-danger btn cansel">取消</button>
-    	</div>
+            </div>
+            <div class="addf-foot">
+                <button class="btn-save btn sure">确定</button>
+                <button class="btn-danger btn cansel">取消</button>
+            </div>
+        </div>
+        <table id="example" class="display">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Salary</th>
+                    <th>Office</th>
+                    <th>option</th>
+                </tr>
+            </thead>
+        </table>
     </div>
-    <table id="example" class="display">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Salary</th>
-                <th>Office</th>
-                <th>option</th>
-            </tr>
-        </thead>
-    </table>
-</div>
 </body>
 <script>
+var countOption = 0;
+function addOp() {
+        var option = $("#dhcpoptions0");
+        var parent = option.parentNode;
+        var parentdel = $("#del");
+        var newdel = document.createElement("button");
+        var newinput = document.createElement("input");
+        countOption += 1;
+        newinput.setAttribute("class", "form-control");
+        newinput.setAttribute("id", "dhcpoptions" + countOption);
+        newinput.setAttribute("type", "text");
+        parent.appendChild(newinput);
+        newdel.setAttribute("class", "btn-danger btn");
+        newdel.setAttribute("onclick", "delOption(this)");
+        newdel.setAttribute("id", countOption + "del");
+        newdel.innerHTML = "删除";
+        parentdel.appendChild(newdel);
+        console.log(parentdel.childNodes, parent.childNodes);
+    };
+
+    function delOption(obj) {
+        var delid = obj.getAttribute("id");
+        console.log(parseFloat(delid));
+        var no = parseFloat(delid);
+        var delbtn = document.getElementById(delid);
+        delbtn.parentNode.removeChild(delbtn);
+        var delinput = document.getElementById("dhcpoptions" + no);
+        delinput.parentNode.removeChild(delinput);
+    };
+    function showAddf() {
+        $("#addf").css("display", "block");
+        $(".div-bgd").css("display", "block");
+
+    };
+    var outv;
+    var closeAddf = function() {
+        $("#addf").css("display", "none");
+        $(".div-bgd").css("display", "none");
+
+        var nameDat = $("#aname").val();
+    var positionDat = $("#aposition").val();
+    var salaryDat = $("#asalary").val();
+    var officeDat = $("#aoffice").val();
+    var optionDat = $("#aoption").val();
+
+    console.log(nameDat, positionDat, salaryDat, officeDat, optionDat);
+    var ina = function(){
+        var arr = [];
+        arr.push(nameDat, positionDat, salaryDat, officeDat, optionDat);
+        return arr;
+    }
+    outv = ina;
+    }
+    
 $(document).ready(function($) {
 
-    function showAddf(){
-        $("#addf").css("display" ,"block");
-        $(".div-bgd").css("display", "block");
-        
-    };
-	
-	function closeAddf(){
-		$("#addf").css("display",  "none");
-        $(".div-bgd").css("display", "none");
-	}
+    
+
+    
 
     var data = [{
         "name": "Tiger Nixon",
@@ -160,12 +242,6 @@ $(document).ready(function($) {
         "office": "Edinburgh",
         "extn": "8422"
     }];
-    var nameDat = $("#aname").html();
-    var positionDat = $("#aposition").val();
-    var salaryDat = $("#asalary").val();
-    var officeDat = $("#aoffice").val();
-    var optionDat = $("#aoption").val();
-    console.log(nameDat, positionDat, salaryDat, officeDat, optionDat);
     $("#example").DataTable({
         data: data,
         columns: [{
@@ -187,30 +263,33 @@ $(document).ready(function($) {
     });
     var table = $("#example").DataTable();
 
-    
-    
-    $(".dele").click(function() {
-        table.row($(this).parents("tr")).remove().draw();
-    });
+
+
+
     $("#addRow").click(function() {
-    	showAddf();
+        showAddf();
     });
     $("#close").click(function() {
-    	closeAddf();
+        closeAddf();
     });
     $(".cansel").click(function() {
-    	closeAddf();
+        closeAddf();
     });
     $(".sure").click(function() {
-    	closeAddf();
-        console.log(nameDat, positionDat, salaryDat, officeDat, optionDat);
+        closeAddf();
+        console.log(outv());
         table.row.add({
-                "name": nameDat,
-                "position": positionDat,
-                "salary": salaryDat,
-                "office": officeDat,
-                "extn": optionDat
-            }).draw();
+            "name": outv()[0],
+            "position": outv()[1],
+            "salary": outv()[2],
+            "office": outv()[3],
+            "extn": outv()[4]
+        }).draw();
+    });
+    $(".dele").click(function() {
+        console.log(table.row($(this).parents("tr")).data());
+        table.row($(this).parents("tr")).remove().draw();
+        
     });
 });
 </script>

@@ -8,12 +8,12 @@
 <body>
 	<input type="text" class="con" />
 	<input type="button" class="test" value="test" />
-	
+
 </body>
 <script>
 	$(document).ready(function() {
 		$(".test").click(function(){
-			alert($(".con").val());
+			console.log($(this));
 		})
 		
 	});

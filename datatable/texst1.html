@@ -22,7 +22,6 @@
     setPxPerRem();
     </script>
     <style>
-
     .dhcp-ser-header,
     .dataTables_wrapper {
         font-size: .1rem;
@@ -38,18 +37,19 @@
         color: #fff;
         background-color: #337ab7;
     }
-	/* .dhcp-ser-info{
+    /* .dhcp-ser-info{
 		font-size: .1rem;
 		float: left;
 		margin-left: 2%;
 	} */
-	#dhcp-ser_paginate{
-		margin-right: 2%;
-	}
-	#dhcp-ser_info{
-		margin-left: 1%;
-	}
-
+    
+    #dhcp-ser_paginate {
+        margin-right: 2%;
+    }
+    
+    #dhcp-ser_info {
+        margin-left: 1%;
+    }
     </style>
 </head>
 
@@ -99,6 +99,29 @@
         <!-- <input type="button" value="清空表格" class="clear-tab" /> -->
         <div class="clear"></div>
     </div>
+    <!-- 高级设置 -->
+    <div id="dhcp-ser-advanc">
+        <div class="addf-line">
+            <div class="clear"></div>
+            <label class="addf-line-le">DHCP-OPTIONS: </label>
+            <div class="addf-line-mid">
+                <input type="text" class="form-control" id="dhcpoptions0">
+            </div>
+            <div class="addf-line-rig" id="del"></div>
+            <div class="clear"></div>
+        </div>
+        <div class="line">
+            <div class="clear"></div>
+            <label class="addf-line-le"></label>
+            <div class="addf-line-mid">
+                <p class="hints">格式：1,12.0.2.3</p>
+            </div>
+            <div class="addf-line-rig">
+                <button class="btn btn-add" onclick="addOptions()">增加</button>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
     <table id="dhcp-ser" class="display" cellspacing="0" width="100%">
         <thead>
             <tr class="tab-th">
@@ -138,6 +161,7 @@
             </tr>
         </tbody>
     </table>
+    
     <!-- <div class="dhcp-ser-info"><p>共<span>XX</span>条数据</p></div> -->
     <table id="example" class="display" cellspacing="0" width="100%" style="display: none;">
         <thead>
@@ -205,7 +229,38 @@
     </table>
 </body>
 <script>
+var countOption = 0;
+function addOptions() {
+        var option = document.getElementById("dhcpoptions0");
+        var parent = option.parentNode;
+        var parentdel = document.getElementById("del");
+        var newdel = document.createElement("button");
+        var newinput = document.createElement("input");
+        countOption += 1;
+        newinput.setAttribute("class", "form-control");
+        newinput.setAttribute("id", "dhcpoptions" + countOption);
+        newinput.setAttribute("type", "text");
+        parent.appendChild(newinput);
+        newdel.setAttribute("class", "btn-danger btn");
+        newdel.setAttribute("onclick", "delOption(this)");
+        newdel.setAttribute("id", countOption + "del");
+        newdel.innerHTML = "删除";
+        parentdel.appendChild(newdel);
+        console.log(parentdel.childNodes, parent.childNodes);
+    };
+
+    function delOption(obj) {
+        var delid = obj.getAttribute("id");
+        console.log(parseFloat(delid));
+        var no = parseFloat(delid);
+        var delbtn = document.getElementById(delid);
+        delbtn.parentNode.removeChild(delbtn);
+        var delinput = document.getElementById("dhcpoptions" + no);
+        delinput.parentNode.removeChild(delinput);
+    };
 $(document).ready(function() {
+    //advanced
+
     //dhcp-server
     var tableser = $("#dhcp-ser").DataTable({
         "pagingType": "full_numbers",
@@ -233,6 +288,8 @@ $(document).ready(function() {
                 cell.innerHTML = i + 1;
             });
         }).draw();
+
+    
     //搜索和页面条目隐藏
     $("#dhcp-ser_filter").css("display", "none");
     $("#dhcp-ser_length").css("display", "none");
