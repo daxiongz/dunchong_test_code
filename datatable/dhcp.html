@@ -32,12 +32,12 @@
 <body>
     <!-- table caption -->
     <div class="line">
-        <button class="btn title-btn ">DHCP服务器</button>
-        <button class="btn title-btn default-btn">DHCP列表</button>
-        <button class="btn title-btn default-btn">静态地址分配</button>
+        <button id="ser_btn"  class="btn title-btn ">DHCP服务器</button>
+        <button id="list_btn"  class="btn title-btn default-btn">DHCP列表</button>
+        <button id="sta_btn"  class="btn title-btn default-btn">静态地址分配</button>
         <hr />
     </div>
-    <div class="dhcp-ser-wrapper" style="display: none;">
+    <div class="dhcp-ser-wrapper wra">
         <!-- dhcp table-tool -->
         <div class="table-tool">
             <div class="clear"></div>
@@ -228,7 +228,7 @@
             </tbody>
         </table>
     </div>
-    <div class="dhcp-list-wrapper">
+    <div class="dhcp-list-wrapper wra" style="display: none;">
     	<!-- dhcp table-tool -->
         <div class="table-tool">
             <div class="clear"></div>
@@ -287,8 +287,204 @@
             </tbody>
         </table>
     </div>
+    <div class="dhcp-static-wrapper wra" style="display: none;">
+    	<!-- dhcp table-tool -->
+        <div class="table-tool">
+            <div class="clear"></div>
+            <input type="button" class="btn btn-save sel-all tab-tool" value="全选" />
+            <input type="button"  class="tab-tool btn btn-save header-add" value="添加" />
+			<input type="file" class="tab-tool btn-file header-imp" value="导入" />
+			<input type="button" class="tab-tool btn btn-save imp-modul" value="导入模板" />
+            <input type="button" class="tab-tool btn btn-danger header-del" value="删除" />
+            <input type="button" value="清空表格" class="tab-tool clear-tab btn btn-danger" />
+            <label class="seaop-lab">
+                <span>搜索选项：</span>
+                <select name="filter" id="dhcp-static-sea-op" class="table-seclect">
+                    <option value="4">客户描述</option>
+                    <option value="3">ipv4地址</option>
+                    <option value="2">MAC地址</option>
+                </select>
+            </label>
+            <label class="seacon-lab">
+                <span>搜索内容：</span>
+                <input type="text" placeholder="搜索项" class="sea-con table-form-control" id="dhcp-static-sea-con" />
+            </label>
+            <input type="button" value="搜索" id="dhcp-static-sea" class="sea-btn btn btn-save" />
+            <input type="button" value="展示全部" class="display-all btn btn-save" />
+            
+            <div class="clear"></div>
+        </div>
+        <!-- 页面弹窗 -->
+        <!-- 悬浮背景 -->
+        <div class="div-bgd" style="display: none;">
+            <div style="position: relative;width: 100%;height: 100%;">
+                <div style="position:fixed;background-color:#333;opacity:0.4;filter:alpha(opacity=0);width:100%;height:100%;"></div>
+            </div>
+        </div>
+        <!-- 修改 添加 -->
+        <div class="addf" id="dhcp-static-addf" style="display: none;">
+            <div class="addf-head">
+                <a href="javascript:void(0);" id="close" class="close">关闭</a>
+            </div>
+            <div class="addf-cont " id="dhcp-static-cont">
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aname" class="addf-line-le">MAC地址：</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="aname" class="form-control"></input>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aname" class="addf-line-le"></label>
+                    <div class="addf-line-mid">
+                        <span class="hints">格式：xx:xx:xx:xx:xx:xx</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aposition" class="addf-line-le">ipv4地址：</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="aposition" class="form-control" />
+                    </div>
+                    <div class="addf-line-rig">
+                        
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aname" class="addf-line-le"></label>
+                    <div class="addf-line-mid">
+                        <span class="hints">请输入所属接口范围内的地址</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="asalary" class="addf-line-le">客户描述:</label>
+                    <div class="addf-line-mid">
+                        <input type="text" id="asalary" class="form-control" />
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="addf-foot">
+                <button class="btn-save btn sure">确定</button>
+                <button class="btn-danger btn cansel">取消</button>
+            </div>
+        </div>
+        <table id="dhcp-static" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr class="tab-th">
+                    <th><input type="checkbox" name="select_all" id="select_all" value="1" /></th>
+                    <th>序号</th>
+                    <th>MAC地址</th>
+                    <th>ipv4地址</th>
+                    <th>客户描述</th>
+                    <th>动作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>1.2.3.6</td>
+                    <td>00:11:22:33:44:22</td>
+                    <td>21</td>
+                    <td><a href="javascript:void(0);" class="static-edit">修改 | </a>
+                    	<a href="javascript:void(0);" class="static-del">删除</a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>1.2.21.6</td>
+                    <td>10:11:22:33:34:22</td>
+                    <td>2321</td>
+                    <td><a href="javascript:void(0);" class="static-edit">修改 | </a>
+                    	<a href="javascript:void(0);" class="static-del">删除</a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>1.2.3.32</td>
+                    <td>20:11:22:33:44:22</td>
+                    <td>21daca</td>
+                    <td><a href="javascript:void(0);" class="static-edit">修改 | </a>
+                    	<a href="javascript:void(0);" class="static-del">删除</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 <script>
+function hasClass(obj, cls) {  
+    return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));  
+}  
+  
+function addClass(obj, cls) {  
+    if (!this.hasClass(obj, cls)) obj.className += " " + cls;  
+}  
+  
+function removeClass(obj, cls) {  
+    if (hasClass(obj, cls)) {  
+        var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');  
+        obj.className = obj.className.replace(reg, ' ');  
+    }
+}
+window.onload = function(){
+	console.log($(".title-btn"));
+	var tab = $(".title-btn");
+	var wr = $(".wra");
+	for (var i = 0; i < tab.length; i++)
+	{
+		tab[i].index = i;
+		tab[i].onclick = function(){
+			for( var j = 0; j<tab.length; j++ )
+			{
+				addClass(tab[j], 'default-btn');
+				/*tab[j].className='default-btn';*/
+				wr[j].style.display = "none";
+			}
+			/*this.className='';*/
+			removeClass(this, "default-btn");
+			wr[this.index].style.display = "block";
+		}
+	}
+}
+/*function selectTab(){
+
+}
+function selecSer(){
+	console.log($(this).val());
+	$("#ser_btn").removeClass('default-btn');
+	$("#list_btn").addClass('default-btn');
+	$("#sta_btn").addClass('default-btn');
+	$(".dhcp-list-wrapepr").css("display", "none");
+	$(".dhcp-static-wrapper").css("display", "none");
+	$(".dhcp-ser-wrapper").css("display", "block");
+	
+}
+function selecList(){
+	$("#list_btn").removeClass('default-btn');
+	$("#ser_btn").addClass('default-btn');
+	$("#sta_btn").addClass('default-btn');
+	$(".dhcp-static-wrapper").css("display", "none");
+	$(".dhcp-ser-wrapper").css("display", "none");
+	$(".dhcp-list-wrapper").css("display", "block");
+	
+}
+function selecSta(){
+	$("#ser_btn").addClass('default-btn');
+	$("#list_btn").addClass('default-btn');
+	$("#sta_btn").removeClass('default-btn');
+	$(".dhcp-ser-wrapper").css("display", "none");
+	$(".dhcp-list-wrapepr").css("display", "none");
+	$(".dhcp-static-wrapper").css("display", "block");
+}*/
+
 function swi() {
     console.log($("#dhcpswitchs").is(":checked"));
     if ($("#dhcpswitchs").is(":checked")) {
@@ -395,6 +591,10 @@ $(document).ready(function() {
             .search(sea_con)
             .draw();
     });
+    //展示全部
+    $(".display-all").click(function() {
+        tableser.ajax.reload().draw();
+    });
     //页面弹窗
     function showAddf() {
         $("#dhcp-ser-addf").css("display", "block");
@@ -415,6 +615,14 @@ $(document).ready(function() {
         $("#dhcp-ser-advanc").css("display", "none");
         $(".div-bgd").css("display", "none");
     }
+    function showSta() {
+    	$("#dhcp-static-addf").css("display", "block");
+        $(".div-bgd").css("display", "block");
+    }
+    function closeSta() {
+    	$("#dhcp-static-addf").css("display", "none");
+        $(".div-bgd").css("display", "none");
+    }
 
     $(".advanc0").click(function() {
         showAdv();
@@ -427,14 +635,17 @@ $(document).ready(function() {
     $(".close").click(function() {
         closeAddf();
         closeAdv();
+        closeSta();
     });
     $(".cansel").click(function() {
         closeAddf();
         closeAdv();
+        closeSta();
     });
     $(".sure").click(function() {
         closeAddf();
         closeAdv();
+        closeSta();
     });
     //dhcp-list
     var tablelist = $("#dhcp-list").DataTable({
@@ -500,6 +711,95 @@ $(document).ready(function() {
             .column(sea_op)
             .search(sea_con)
             .draw();
+    });
+    //展示全部
+    $(".display-all").click(function() {
+        tablelist.ajax.reload().draw();
+    });
+
+    //dhcp-static
+    var tablesta = $("#dhcp-static").DataTable({
+        "pagingType": "full_numbers",
+        'fnDrawCallback': function(table) { //跳转指定页
+            $("#dhcp-list_paginate").append("  到第 <input type='text' id='changePageSta' class='input-text' style='width:25px;height:16px'> 页 <input type='button' value='GO' class='btn' id='#dataTable-btn-sta'/> ");
+            var oTable = $("#dhcp-static").dataTable();
+            $('#dataTable-btn-sta').click(function(e) {
+                if ($("#changePageSta").val() && $("#changePageSta").val() > 0) {
+                    console.log($("#changePageSta").val());
+                    var redirectpage = $("#changePageSta").val() - 1;
+                } else {
+                    var redirectpage = 0;
+                }
+                oTable.fnPageChange(redirectpage);
+            });
+        },
+        language: { //多语言
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        }
+    });
+    //序号列
+    tablesta.on('order.dt search.dt',
+        function() {
+            tablesta.column(1, {
+                search: 'applied',
+                order: 'applied'
+            }).nodes().each(function(cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    //搜索和页面条目隐藏
+    $("#dhcp-static_filter").css("display", "none");
+    $("#dhcp-static_length").css("display", "none");
+    //自定义搜索
+    $("#dhcp-static-sea").click(function(event) {
+        var sea_op = $("#dhcp-static-sea-op").val();
+        /*console.log(sea_op);*/
+        var sea_con = $("#dhcp-static-sea-con").val();
+        /*console.log(sea_con);*/
+        tablesta
+            .column(sea_op)
+            .search(sea_con)
+            .draw();
+    });
+    $(".static-edit").click(function(){
+    	showSta();
+    });
+    $(".header-add").click(function(){
+    	showSta();
+    });
+    $(".static-del").click(function() {
+        console.log(tablesta.row($(this).parents("tr")).data());
+        tablesta.row($(this).parents("tr")).remove().draw();
+        
+    });
+    //展示全部
+    $(".display-all").click(function() {
+        tablesta.ajax.reload().draw();
+    });
+    //清空表格
+    $(".clear-tab").click(function() {
+        tablesta.clear().draw();
     });
 
 })

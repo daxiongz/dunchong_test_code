@@ -449,10 +449,11 @@
                 break;
         }
     };
-    function mask(){
+
+    function mask() {
         var objs = document.getElementById("static-mask");
         let value = objs.options[objs.selectedIndex].value;
-        if(value == "custom"){
+        if (value == "custom") {
             document.getElementById("othermask").style.display = "block";
         }
     };

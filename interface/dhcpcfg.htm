@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="<%=resource%>/css/jquery.dataTables.css" />
     <link rel="stylesheet" href="<%=resource%>/css/3row.css" />
     <script src="<%=resource%>/js/jquery.min.js"></script>
-    <script src="<%=resource%>/js/jquery.dataTables.js"></script>
+<script src="<%=resource%>/js/jquery.dataTables.js"></script>
     <script>
     //<![CDATA[
     var cssEl = document.createElement('style');
@@ -86,13 +86,54 @@
         var delinput = document.getElementById("dhcpoptions" + no);
         delinput.parentNode.removeChild(delinput);
     };
+    function creElement (node, con) {
+        var an = document.createElement("node"); 
+        var ac = document.createTextNode("con");
+        an.appendChild(ac);
+        return an;
+    }
+    function creGoPage(pageid, goid){
+        var newnode = document.createElement("div");
+        newnode.setAttribute("id", "pa");
+        var nodec1 = document.createTextNode("第 ");
+        newnode.appendChild(nodec1);
+        
+        var node1 = document.createElement("input");
+        node1.setAttribute("type", "text");
+        node1.setAttribute("id", "pageid");
+        node1.style.width = "25px";
+        node1.style.height = "16px";
+        newnode.appendChild(node1);
+        
+        var nodec2 = document.createTextNode(" 页 ");
+        newnode.appendChild(nodec2);
+        
+        var node2 = document.createElement("input");
+        node2.setAttribute("type", "button");
+        node2.setAttribute("value", "GO");
+        node2.setAttribute("class", "btn");
+        node2.setAttribute("id", "goid");
+        newnode.appendChild(node2);
+        newnode.style.display = "inline-block";
+        console.log(newnode);
+        return newnode;
+    }
+    
+    
+    
+    
+    
+               /* var nodecon =document.createTextNode("  到第 <input type='text' id='changePageSer' class='input-text' style='width:25px;height:16px'> 页 <input type='button' value='GO' class='btn' id='#dataTable-btn-ser'/> ") ;
+                newnode.appendChild(nodecon);*/
+                
     $(document).ready(function() {
-
+        console.log(1);
         //dhcp-server
         var tableser = $("#dhcp-ser").DataTable({
             "pagingType": "full_numbers",
             'fnDrawCallback': function(table) { //跳转指定页
-                $("#dhcp-ser_paginate").append("  到第 <input type='text' id='changePageSer' class='input-text' style='width:25px;height:16px'> 页 <input type='button' value='GO' class='btn' id='#dataTable-btn-ser'/> ");
+                var newnode = creGoPage("changePageSer", "dataTable-btn-ser");
+                document.getElementById("dhcp-ser_paginate").appendChild(newnode);
                 var oTable = $("#dhcp-ser").dataTable();
                 $('#dataTable-btn-ser').click(function(e) {
                     if ($("#changePageSer").val() && $("#changePageSer").val() > 0) {
@@ -128,10 +169,11 @@
                     "sSortDescending": ": 以降序排列此列"
                 }
             },
-            "dom": "tip"
+            "dom": "fltip"
         });
+        console.log(2);
         //序号列
-       /* tableser.on('order.dt search.dt',
+        tableser.on('order.dt search.dt',
             function() {
                 tableser.column(0, {
                     search: 'applied',
@@ -139,10 +181,11 @@
                 }).nodes().each(function(cell, i) {
                     cell.innerHTML = i + 1;
                 });
-            }).draw();*/
+            }).draw();
         //搜索和页面条目隐藏
         $("#dhcp-ser_filter").css("display", "none");
         $("#dhcp-ser_length").css("display", "none");
+        console.log(3);
         //自定义搜索
         $("#dhcp-ser-sea").click(function(event) {
             var sea_op = $("#dhcp-ser-sea-op").val();
@@ -216,7 +259,8 @@
         var tablelist = $("#dhcp-list").DataTable({
             "pagingType": "full_numbers",
             'fnDrawCallback': function(table) { //跳转指定页
-                $("#dhcp-list_paginate").append("  到第 <input type='text' id='changePageList' class='input-text' style='width:25px;height:16px'> 页 <input type='button' value='GO' class='btn' id='#dataTable-btn-list'/> ");
+                var newnode = creGoPage("changePageList", "dataTable-btn-list");
+                $("#dhcp-list_paginate").append(newnode);
                 var oTable = $("#dhcp-list").dataTable();
                 $('#dataTable-btn-list').click(function(e) {
                     if ($("#changePageList").val() && $("#changePageList").val() > 0) {
@@ -254,7 +298,7 @@
             }
         });
         //序号列
-        /*tablelist.on('order.dt search.dt',
+        tablelist.on('order.dt search.dt',
             function() {
                 tablelist.column(0, {
                     search: 'applied',
@@ -262,7 +306,7 @@
                 }).nodes().each(function(cell, i) {
                     cell.innerHTML = i + 1;
                 });
-            }).draw();*/
+            }).draw();
         //搜索和页面条目隐藏
         $("#dhcp-list_filter").css("display", "none");
         $("#dhcp-list_length").css("display", "none");
@@ -286,7 +330,8 @@
         var tablesta = $("#dhcp-static").DataTable({
             "pagingType": "full_numbers",
             'fnDrawCallback': function(table) { //跳转指定页
-                $("#dhcp-list_paginate").append("  到第 <input type='text' id='changePageSta' class='input-text' style='width:25px;height:16px'> 页 <input type='button' value='GO' class='btn' id='#dataTable-btn-sta'/> ");
+                var newnode = creGoPage("changePageSta", "dataTable-btn-sta");
+                $("#dhcp-static_paginate").append(newnode);
                 var oTable = $("#dhcp-static").dataTable();
                 $('#dataTable-btn-sta').click(function(e) {
                     if ($("#changePageSta").val() && $("#changePageSta").val() > 0) {
@@ -324,7 +369,7 @@
             }
         });
         //序号列
-        /*tablesta.on('order.dt search.dt',
+        tablesta.on('order.dt search.dt',
             function() {
                 tablesta.column(1, {
                     search: 'applied',
@@ -332,9 +377,9 @@
                 }).nodes().each(function(cell, i) {
                     cell.innerHTML = i + 1;
                 });
-            }).draw();*/
+            }).draw();
         //搜索和页面条目隐藏
-        document.getElementById("#dhcp-static_filter").style.display = "none";
+        /*document.getElementById("#dhcp-static_filter").style.display = "none";*/
         $("#dhcp-static_filter").css("display", "none");
         $("#dhcp-static_length").css("display", "none");
         //自定义搜索
@@ -373,7 +418,7 @@
     </script>
     <style>
     table {
-        text-align: center;
+        text-align: center!important;
     }
     </style>
     <!-- table caption -->

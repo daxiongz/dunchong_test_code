@@ -1,0 +1,70 @@
+<%+header%>
+<link rel="stylesheet" href="<%=resource%>/css/jquery.dataTables.css" />
+<script src="<%=resource%>/js/jquery.min.js"></script>
+<script src="<%=resource%>/js/jquery.dataTables.js"></script>
+
+<button id="addRow">add</button>
+	<table id="example" class="display">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Position</th>
+				<th>Salary</th>
+				<th>Office</th>
+				<th>option</th>
+			</tr>
+		</thead>
+	</table>
+
+<script>//<![CDATA[
+	jQuery(document).ready(function($) {
+		var data = [
+	        {
+	            "name":       "Tiger Nixon",
+	            "position":   "System Architect",
+	            "salary":     "$3,120",
+	            "start_date": "2011/04/25",
+	            "office":     "Edinburgh",
+	            "extn":       "5421"
+	        },
+	        {
+	            "name":       "Garrett Winters",
+	            "position":   "Director",
+	            "salary":     "$5,300",
+	            "start_date": "2011/07/25",
+	            "office":     "Edinburgh",
+	            "extn":       "8422"
+	        }
+	    ];
+		$("#example").DataTable({
+			data: data,
+			columns: [
+				{data: "name"},
+				{data: "position"},
+				{data: "salary"},
+				{data: "office"}
+			],
+			"columnDefs":[{
+				"targets": 4,
+				"data": "extn",
+				"render": function(data){
+					return '<button class="dele">'+data+'</button>';
+				}
+			}]
+		});
+		var table = $("#example").DataTable();
+		$("#addRow").click(function() {
+			table.row.add({
+				"name": "aiong",
+				"position": "xian",
+				"salary": "7000",
+				"office": "dunchong",
+				"extn": "121"
+			}).draw();
+		});
+		$(".dele").click(function() {
+			table.row($(this).parents("tr")).remove().draw();
+		});
+	});
+//]]></script>
+<%+footer%>

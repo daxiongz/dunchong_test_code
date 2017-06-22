@@ -54,7 +54,7 @@ body {
 
 .addf-line-mid {
     float: left;
-    width: 40%;
+    width: 45%;
     margin-left: 2%;
     color: #677;
 }
@@ -126,6 +126,13 @@ body {
 }
 
 .btn-save {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.btn-file{
+    margin: 3px;
     color: #fff;
     background-color: #5cb85c;
     border-color: #4cae4c;
@@ -248,8 +255,9 @@ hr {
     font-size: 16px;
     color: #777;
 }
-
+.tab-tool,
 .sea-btn,
+.clear-tab,
 .display-all {
     float: left;
     margin-left: 1%;

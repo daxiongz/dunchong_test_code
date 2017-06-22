@@ -169,9 +169,9 @@
 <script>
 var countOption = 0;
 function addOp() {
-        var option = $("#dhcpoptions0");
-        var parent = option.parentNode;
-        var parentdel = $("#del");
+        var option = document.getElementById("dhcpoptions0");
+    var parent = option.parentNode;
+    var parentdel = document.getElementById("del");
         var newdel = document.createElement("button");
         var newinput = document.createElement("input");
         countOption += 1;
