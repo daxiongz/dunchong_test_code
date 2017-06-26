@@ -5,4 +5,5 @@ function index()
 	entry({"admin", "Interface", "LAN Configuration"}, template("lancfg"), _("LAN Configuration"),1)
 	entry({"admin", "Interface", "WAN Configuration"}, template("wancfg"), _("WAN Configuration"),2)
 	entry({"admin", "Interface", "DHCP Configuration"}, template("dhcpcfg"), _("DHCP Configuration"),3)
+	entry({"admin", "Interface", "VLAN Configuration"}, template("vlancfg"), _("VLAN Configuration"),4)
 end
