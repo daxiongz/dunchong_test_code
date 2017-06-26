@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html lang="en-US">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<script src="js/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
 </head>
 <body>
-	<input type="text" class="con" />
-	<input type="button" class="test" value="test" />
-
+    <a href="http://www.qq.com" onclick = "return f1()">腾讯</a>
+    <script type="text/javascript">
+        
+        //定义f1函数
+        function f1(){
+            console.log( '腾讯被点击了');
+            
+        }
+    
+    </script>
 </body>
-<script>
-	$(document).ready(function() {
-		$(".test").click(function(){
-			console.log($(this));
-		})
-		
-	});
-</script>
 </html>

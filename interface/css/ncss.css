@@ -3,25 +3,25 @@
     padding: 0;
 }
 
-body {
+/* body {
     font-size: .1rem;
-}
+} */
 
 .wrappers {
     width: 100%;
-    margin: 0 auto;
-    font-size: .1rem;
+    margin: 0 auto;/* 
+    font-size: .1rem; */
 }
 
 .line {
     width: 100%;
-    font-size: .1rem;
+    font-size: 15px;
     line-height: normal;
 }
 
 .addf-line {
-    width: 100%;
-    font-size: .1rem;
+    width: 100%;/* 
+    font-size: .1rem; */
     line-height: normal;
     margin-top: 2%;
 }
@@ -32,7 +32,7 @@ body {
     text-align: right;
     height: 24px;
     margin-top: .015rem;
-    color: #777;
+    
 }
 
 .addf-line-le {
@@ -42,19 +42,19 @@ body {
     text-align: right;
     height: 24px;
     margin-top: .015rem;
-    color: #777;
+    /* color: #777; */
 }
 
 .mid {
     float: left;
     width: 20%;
     margin-left: 2%;
-    color: #677;
+    color: #444;
 }
 
 .addf-line-mid {
     float: left;
-    width: 43%;
+    width: 42%;
     margin-left: 2%;
     color: #677;
 }
@@ -74,13 +74,14 @@ body {
 
 .form-control {
     width: 90%!important;
-    height: 18px;
-    margin: .02rem 0 0 0;
+   /*  height: 18px; */
+    /* margin: .02rem 0 0 0; */
     display: block;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
     padding: 2px 5px;
+    margin-top: 1px;
 }
 
 .table-form-control {
@@ -105,26 +106,26 @@ body {
 }
 
 .btn {
-    display: inline-block;
-    margin: .01rem 0 0 0;
-    height: 26px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    padding: 2px;
+    display: inline-block;/* 
+    margin: .01rem 0 0 0; */
+    /* height: 26px!important; */
+    /* border: 1px solid transparent; */
+    /* border-radius: 4px; */
+    padding: 1px;
     font-size: 14px;
     cursor: pointer;
 }
 
 .title-btn {
     font-size: .11rem;
-    color: #fff;
+   color: #fff;
     background-color: #337ab7;
     border-color: #2e6da4;
     cursor: default;
     padding: 1px 3px;
     height: auto;
 }
-
+/*
 .btn-save {
     color: #fff;
     background-color: #5cb85c;
@@ -132,25 +133,25 @@ body {
 }
 
 .btn-file{
-    margin: 3px;
     color: #fff;
     background-color: #5cb85c;
     border-color: #4cae4c;
+    width: 1.5rem;
 }
 
 .btn-add {
     color: #fff;
     background-color: #5bc0de;
     border-color: #46b8da;
-}
+} */
 
 .btn-danger {
     display: block;
-    color: #fff;
+    margin-top: 1px;
+    /* color: #fff;
     background-color: #d9534f;
-    border-color: #d43f3a;
+    border-color: #d43f3a; */
 }
-
 .default-btn {
     color: #333;
     background-color: #e6e6e6;
@@ -158,10 +159,10 @@ body {
 }
 
 .notice {
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
-    font-size: .085rem;
-    color: #31708f;
+    /* font-size: .085rem;
+    color: #31708f; */
 }
 
 .space {
@@ -180,7 +181,7 @@ hr {
 }
 
 .hints {
-    color: #8a6d3b;
+    color: #444;
     height: 24px;
     margin-top: .015rem;
     display: block;
@@ -212,7 +213,7 @@ hr {
 }
 
 .sure {
-    margin: 2px 5% 2px 40%;
+    margin: 0 5% 0 35%;
 }
 
 .close {
@@ -238,17 +239,15 @@ hr {
 .seacon-lab {
     display: inline-block;
     float: left;
-    width: 15%;
-    margin: 0 0 0 1%;
+    width: 17%;
+    margin-right: 1%;
 }
 
 .seaop-lab {
     padding-top: 3px;
 }
 
-.seaop-lab select {
-    height: 18px;
-}
+
 
 .seaop-lab span,
 .seacon-lab span {
@@ -260,7 +259,7 @@ hr {
 .clear-tab,
 .display-all {
     float: left;
-    margin-left: 1%;
+    margin-right: 1%;
 }
 
 .tab-th {
@@ -277,7 +276,7 @@ hr {
 
 .addf {
     position: absolute;
-    top: 30%;
+    top: 20%;
     left: 40%;
     width: 500px;
     border: 1px solid #ccc;
@@ -298,4 +297,7 @@ hr {
 
 .dataTables_info {
     margin-left: 1%;
+}
+#goid{
+    width: 20px!important;
 }

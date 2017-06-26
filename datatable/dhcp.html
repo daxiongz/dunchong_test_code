@@ -115,33 +115,33 @@
             <div class="addf-cont " id="dhcp-ser-cont">
                 <div class="addf-line">
                     <div class="clear"></div>
-                    <label for="aname" class="addf-line-le">引用：</label>
+                    <label for="quote" class="addf-line-le">引用：</label>
                     <div class="addf-line-mid">
-                        <input type="text" id="aname" class="form-control"></input>
+                        <input type="text" id="quote" class="form-control"></input>
                     </div>
                     <div class="clear"></div>
                 </div>
                 <div class="addf-line">
                     <div class="clear"></div>
-                    <label for="aposition" class="addf-line-le">起始地址：</label>
+                    <label for="startip" class="addf-line-le">起始地址：</label>
                     <div class="addf-line-mid">
-                        <input type="text" id="aposition" class="form-control" />
+                        <input type="text" id="startip" class="form-control" />
                     </div>
                     <div class="clear"></div>
                 </div>
                 <div class="addf-line">
                     <div class="clear"></div>
-                    <label for="asalary" class="addf-line-le">结束地址:</label>
+                    <label for="endip" class="addf-line-le">结束地址:</label>
                     <div class="addf-line-mid">
-                        <input type="text" id="asalary" class="form-control" />
+                        <input type="text" id="endip" class="form-control" />
                     </div>
                     <div class="clear"></div>
                 </div>
                 <div class="addf-line">
                     <div class="clear"></div>
-                    <label for="aoffice" class="addf-line-le">租用时间：</label>
+                    <label for="renttime" class="addf-line-le">租用时间：</label>
                     <div class="addf-line-mid">
-                        <input type="text" id="aoffice" class="form-control" />
+                        <input type="text" id="renttime" class="form-control" />
                     </div>
                     <div class="addf-line-rig">
                         <span class="hints">分钟</span>
@@ -150,9 +150,9 @@
                 </div>
                 <div class="addf-line">
                     <div class="clear"></div>
-                    <label for="aoffice" class="addf-line-le">主DNS服务器：</label>
+                    <label for="majordns" class="addf-line-le">主DNS服务器：</label>
                     <div class="addf-line-mid">
-                        <input type="text" id="aoffice" class="form-control" />
+                        <input type="text" id="majordns" class="form-control" />
                     </div>
                     <div class="addf-line-rig">
                         <span class="hints">可选</span>
@@ -161,9 +161,9 @@
                 </div>
                 <div class="addf-line">
                     <div class="clear"></div>
-                    <label for="aoffice" class="addf-line-le">辅DNS服务器：</label>
+                    <label for="assistdns" class="addf-line-le">辅DNS服务器：</label>
                     <div class="addf-line-mid">
-                        <input type="text" id="aoffice" class="form-control" />
+                        <input type="text" id="assistdns" class="form-control" />
                     </div>
                     <div class="addf-line-rig">
                         <span class="hints">可选</span>
@@ -172,9 +172,9 @@
                 </div>
                 <div class="addf-line">
                     <div class="clear"></div>
-                    <label for="aoffice" class="addf-line-le">默认网关地址：</label>
+                    <label for="defgateway" class="addf-line-le">默认网关地址：</label>
                     <div class="addf-line-mid">
-                        <input type="text" id="aoffice" class="form-control" />
+                        <input type="text" id="defgateway" class="form-control" />
                     </div>
                     <div class="addf-line-rig">
                         <span class="hints">可选</span>
@@ -389,7 +389,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td></td>
+                    <td><input type="checkbox"  class="checkchild"  /></td>
                     <td></td>
                     <td>1.2.3.6</td>
                     <td>00:11:22:33:44:22</td>
@@ -398,7 +398,7 @@
                     	<a href="javascript:void(0);" class="static-del">删除</a></td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td><input type="checkbox"  class="checkchild"  /></td>
                     <td></td>
                     <td>1.2.21.6</td>
                     <td>10:11:22:33:34:22</td>
@@ -407,7 +407,7 @@
                     	<a href="javascript:void(0);" class="static-del">删除</a></td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td><input type="checkbox"  class="checkchild"  /></td>
                     <td></td>
                     <td>1.2.3.32</td>
                     <td>20:11:22:33:44:22</td>
@@ -596,9 +596,16 @@ $(document).ready(function() {
         tableser.ajax.reload().draw();
     });
     //页面弹窗
-    function showAddf() {
+    function showAddf(quote, startip, endip, renttime, majordns, assistdns, defgateway) {
         $("#dhcp-ser-addf").css("display", "block");
         $(".div-bgd").css("display", "block");
+        $("#quote").val(quote);
+        $("#startip").val(startip);
+        $("#endip").val(endip);
+        $("#renttime").val(renttime);
+        $("#majordns").val(majordns);
+        $("#assistdns").val(assistdns);
+        $("#defgateway").val(defgateway);
     };
 
     function closeAddf() {
@@ -629,7 +636,9 @@ $(document).ready(function() {
     })
 
     $(".edit0").click(function() {
-        showAddf();
+    	console.log(tableser.row($(this).parents("tr")).data());
+    	var data = tableser.row($(this).parents("tr")).data();
+        showAddf(data[2], data[3], data[4], data[5]);
     });
 
     $(".close").click(function() {
@@ -732,7 +741,16 @@ $(document).ready(function() {
                 }
                 oTable.fnPageChange(redirectpage);
             });
-        },
+        },/*
+        "columns": [
+             {
+                 "sClass": "text-center",
+                 "data":null,
+                 "render": function (data, type, full, meta) {
+                     return '<input type="checkbox"  class="checkchild"  />';
+                 },
+                 "bSortable": false
+             }],*/
         language: { //多语言
             "sProcessing": "处理中...",
             "sLengthMenu": "显示 _MENU_ 项结果",
@@ -768,6 +786,28 @@ $(document).ready(function() {
                 cell.innerHTML = i + 1;
             });
         }).draw();
+    //多选删除
+    $("#dhcp-static tbody :checkbox ").on('click', function(event) {
+    	if ($(this).parents("tr").hasClass('selected')) {
+    		$(this).parents("tr").removeClass('selected');
+    	}else {
+    		/*tablesta.$('tr.selected').removeClass('selected');*/
+    		$(this).parents("tr").addClass('selected');
+    	}
+    });
+    $("#select_all").change(function(event) {
+    	console.log(this);
+    	if (this.checked) {
+    		$("#dhcp-static tbody :checkbox ").attr("checked", "checked");
+    		$("#dhcp-static tbody tr").addClass('selected');
+    	}else {
+    		$("#dhcp-static tbody :checkbox ").attr("checked", false);
+    		$("#dhcp-static tbody tr").removeClass('selected');
+    	}
+    });
+    $(".header-del").click(function(event) {
+    	tablesta.rows('.selected').remove().draw();
+    }); 
     //搜索和页面条目隐藏
     $("#dhcp-static_filter").css("display", "none");
     $("#dhcp-static_length").css("display", "none");

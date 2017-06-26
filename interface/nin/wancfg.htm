@@ -1,0 +1,457 @@
+<%+header%>
+    <link rel="stylesheet" href="<%=resource%>/css/ncss.css" />
+    <script type="text/javascript">
+    //<![CDATA[
+    /*var cssEl = document.createElement('style');
+    document.documentElement.firstElementChild.appendChild(cssEl);
+
+    function setPxPerRem() {
+        var dpr = window.devicePixelRatio || 1;
+        //把viewport分成10份的rem，html标签的font-size设置为1rem的大小;
+        var pxPerRem = document.documentElement.clientWidth * dpr / 10;
+        cssEl.innerHTML = 'html{font-size:' + pxPerRem + 'px!important;}';
+        console.log(dpr);
+    }
+    setPxPerRem();*/ //]]>
+    </script>
+    <style>
+    .btn-stat-op {
+        margin-left: -30%;
+    }
+    </style>
+    <div class="maincontent">
+    <div class="wrappers">
+        
+            <h2>WAN设置</h2>
+        
+        <div class="line">
+            <div class="clear"></div>
+            <div class="le">
+                <span>协议：</span>
+            </div>
+            <div class="mid">
+                <select name="protocol" id="protocol" onchange="changeProt()">
+                    <option value="DHCP" selected="selected">DHCP客户端</option>
+                    <option value="STATIC">静态地址</option>
+                    <option value="PPPOE">PPPOE</option>
+                </select>
+            </div>
+            <div class="rig">
+                <button class="btn btn-save">保存</button>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div id="dhcp-cont">
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>请求DHCP时发送的主机名：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>设置MTU：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" placeholder="1500" class="form-control"></input>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>克隆MAC地址：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>主DNS服务器：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="rig">
+                    <span class="hints">（可选）</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>辅DNS服务器：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="rig">
+                    <span class="hints">（可选）</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <h2>WAN口状态</h2>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>连接方式：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">DHCP</span>
+                </div>
+                <div class="rig">
+                    <button class="btn btn-danger btn-stat-op">释放</button>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>链路状态：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">已连接</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>IP地址：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">10.2.3.6</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>网关地址：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">114.114.114.114</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>主DNS服务器：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">8.8.8.8</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>辅DNS服务器：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">114.114.114.114</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>MAC地址：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">00:11:22:11:22:33</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>DHCP剩余时间：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">0h 12m 21s</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div id="pppoe-cont" style="display: none;">
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>PAP/CHAP用户名：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>PAP/CHAP密码：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>设置MTU：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" placeholder="1500" class="form-control"></input>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>主DNS服务器：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="rig">
+                    <span class="hints">（可选）</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>辅DNS服务器：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="rig">
+                    <span class="hints">（可选）</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <h2>WAN口状态</h2>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>连接方式：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">PPPOE</span>
+                </div>
+                <div class="rig">
+                    <button class="btn btn-danger btn-stat-op">释放</button>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>链路状态：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">已连接</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>IP地址：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">10.2.3.6</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>子网掩码</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">255.0.0.0</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>网关地址：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">114.114.114.114</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>主DNS服务器：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">8.8.8.8</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>辅DNS服务器：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">114.114.114.114</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>MAC地址：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">00:11:22:11:22:33</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>DHCP剩余时间：</span>
+                </div>
+                <div class="mid">
+                    <span class="mid-span">0h 12m 21s</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div id="static-cont" style="display: none;">
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>IPv4地址：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>IPv4子网掩码：</span>
+                </div>
+                <div class="mid">
+                    <select name="static-mask" id="static-mask">
+                        <option value="255.255.255.255">255.255.255.255</option>
+                        <option value="255.255.255.0">255.255.255.0</option>
+                        <option value="255.255.0.0">255.255.0.0</option>
+                        <option value="255.0.0.0">255.0.0.0</option>
+                        <option value="custom">自定义</option>
+                    </select>
+                    <input type="text" class="form-control" id="othermask" placeholder="自定义子网掩码" style="display: none;"></input>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>IPv4网关：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>设置MTU：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" placeholder="1500" class="form-control"></input>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="le">
+                    <span>克隆MAC地址：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>主DNS服务器：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="rig">
+                    <span class="hints">（可选）</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="line">
+                <div class="clear"></div>
+                <div class="le">
+                    <span>辅DNS服务器：</span>
+                </div>
+                <div class="mid">
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="rig">
+                    <span class="hints">（可选）</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+    //<![CDATA[
+    function changeProt() {
+        let objs = document.getElementById("protocol");
+        let value = objs.options[objs.selectedIndex].value;
+        console.log(value);
+        switch (value) {
+            case "DHCP":
+                document.getElementById("dhcp-cont").style.display = 'block';
+                document.getElementById("static-cont").style.display = 'none';
+                document.getElementById("pppoe-cont").style.display = 'none';
+                break;
+            case "STATIC":
+                document.getElementById("static-cont").style.display = 'block';
+                document.getElementById("dhcp-cont").style.display = 'none';
+                document.getElementById("pppoe-cont").style.display = 'none';
+                break;
+            case "PPPOE":
+                document.getElementById("pppoe-cont").style.display = 'block';
+                document.getElementById("dhcp-cont").style.display = 'none';
+                document.getElementById("static-cont").style.display = 'none';
+                break;
+        }
+    };
+
+    function mask() {
+        var objs = document.getElementById("static-mask");
+        let value = objs.options[objs.selectedIndex].value;
+        if (value == "custom") {
+            document.getElementById("othermask").style.display = "block";
+        }
+    };
+    //]]>
+    </script>
+    <%+footer%>

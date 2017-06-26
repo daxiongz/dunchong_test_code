@@ -1,0 +1,553 @@
+<%+header%>
+    <link rel="stylesheet" href="<%=resource%>/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="<%=resource%>/css/ncss.css" />
+    <script src="<%=resource%>/js/jquery.min.js"></script>
+    <script src="<%=resource%>/js/jquery.dataTables.js"></script>
+    <div class="maincontent">
+        <div class="line">
+            <button id="vlan_inf" class="btn title-btn ">vlan接口</button>
+            <button id="vlan_cfg" class="btn title-btn default-btn">vlan配置</button>
+            <hr />
+        </div>
+        <!-- 悬浮背景 -->
+        <div class="div-bgd" style="display: none;">
+            <div style="position: relative;width: 100%;height: 100%;">
+                <div style="position:fixed;background-color:#333;opacity:0.4;filter:alpha(opacity=0);width:100%;height:100%;">
+                </div>
+            </div>
+        </div>
+        <div class="vlan-inf-wrapper wra" style="display: block;">
+            <!-- vlan table-tool -->
+            <div class="table-tool">
+                <div class="clear"></div>
+                <!-- <input type="button" class="btn btn-save sel-all tab-tool" value="全选" /> -->
+                <input type="button" class="tab-tool btn btn-save header-add" value="添加" />
+                <div class="clear"></div>
+            </div>
+            <!-- 页面弹窗 -->
+            <!-- 修改 添加 -->
+            <div class="addf" id="vlan-inf-addf" style="display: none;">
+                <div class="addf-head">
+                    <a href="javascript:void(0);" id="close" class="close">关闭</a>
+                </div>
+                <div class="addf-cont " id="dhcp-static-cont">
+                    <div class="addf-line">
+                        <div class="clear"></div>
+                        <label for="aname" class="addf-line-le">vlan接口名称：</label>
+                        <div class="addf-line-mid">
+                            <input type="text" id="aname" class="form-control"></input>
+                        </div>
+                        <div class="addf-line-rig">
+                            <span class="hints">vlan+数字（3~4094）</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="addf-line">
+                        <div class="clear"></div>
+                        <label for="aname" class="addf-line-le">vlanID：</label>
+                        <div class="addf-line-mid">
+                            <input type="text" id="aname" class="form-control"></input>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="addf-line">
+                        <div class="clear"></div>
+                        <label for="aname" class="addf-line-le">ipv4地址：</label>
+                        <div class="addf-line-mid">
+                            <input type="text" id="aname" class="form-control"></input>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="addf-line">
+                        <div class="clear"></div>
+                        <label for="aname" class="addf-line-le">ipv4子网掩码：</label>
+                        <div class="addf-line-mid">
+                            <input type="text" id="aname" class="form-control"></input>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="addf-line">
+                        <div class="clear"></div>
+                        <label for="aname" class="addf-line-le">DHCP：</label>
+                        <div class="addf-line-mid">
+                            <input type="checkbox" checked="checked" id="dhcpswitchs" onclick="swi()" />
+                        </div>
+                        <div class="addf-line-rig">
+                            <span class="hints">开启/关闭DHCP</span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="addf-cont " id="vlan-inf-cont">
+                        <div class="addf-line">
+                            <div class="clear"></div>
+                            <label for="aname" class="addf-line-le">引用：</label>
+                            <div class="addf-line-mid">
+                                <input type="text" id="aname" class="form-control"></input>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="addf-line">
+                            <div class="clear"></div>
+                            <label for="aposition" class="addf-line-le">起始地址：</label>
+                            <div class="addf-line-mid">
+                                <input type="text" id="aposition" class="form-control" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="addf-line">
+                            <div class="clear"></div>
+                            <label for="asalary" class="addf-line-le">结束地址:</label>
+                            <div class="addf-line-mid">
+                                <input type="text" id="asalary" class="form-control" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="addf-line">
+                            <div class="clear"></div>
+                            <label for="aoffice" class="addf-line-le">租用时间：</label>
+                            <div class="addf-line-mid">
+                                <input type="text" id="aoffice" class="form-control" />
+                            </div>
+                            <div class="addf-line-rig">
+                                <span class="hints">分钟</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="addf-line">
+                            <div class="clear"></div>
+                            <label for="aoffice" class="addf-line-le">主DNS服务器：</label>
+                            <div class="addf-line-mid">
+                                <input type="text" id="aoffice" class="form-control" />
+                            </div>
+                            <div class="addf-line-rig">
+                                <span class="hints">可选</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="addf-line">
+                            <div class="clear"></div>
+                            <label for="aoffice" class="addf-line-le">辅DNS服务器：</label>
+                            <div class="addf-line-mid">
+                                <input type="text" id="aoffice" class="form-control" />
+                            </div>
+                            <div class="addf-line-rig">
+                                <span class="hints">可选</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="addf-line">
+                            <div class="clear"></div>
+                            <label for="aoffice" class="addf-line-le">默认网关地址：</label>
+                            <div class="addf-line-mid">
+                                <input type="text" id="aoffice" class="form-control" />
+                            </div>
+                            <div class="addf-line-rig">
+                                <span class="hints">可选</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="addf-foot">
+                        <button class="btn-save btn sure">确定</button>
+                        <button class="btn-danger btn cansel">取消</button>
+                    </div>
+                </div>
+            </div>
+            <table id="vlan-inf" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr class="tab-th">
+                        <td>序号</td>
+                        <th>vlan接口名</th>
+                        <th>vlan ID</th>
+                        <th>ipv4地址</th>
+                        <th>ipv4子网掩码</th>
+                        <th>DHCP开关</th>
+                        <th>动作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>vlan121</td>
+                        <td>121</td>
+                        <td>10.2.3.2</td>
+                        <td>255.0.0.0</td>
+                        <td>开</td>
+                        <td><a href="javascript:void(0);" class="vlani-edit">修改 | </a>
+                            <a href="javascript:void(0);" class="vlani-del">删除</a></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>vlan90</td>
+                        <td>90</td>
+                        <td>10.5.6.1</td>
+                        <td>255.255.255.0</td>
+                        <td>关</td>
+                        <td><a href="javascript:void(0);" class="vlani-edit">修改 | </a>
+                            <a href="javascript:void(0);" class="vlani-del">删除</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="vlan-cfg-wrapper wra" style="display: none;">
+           
+            <!-- 页面弹窗 -->
+            <!-- 修改 -->
+            <div class="addf" id="vlan-cfg-addf" style="display: none;">
+                <div class="addf-head">
+                    <a href="javascript:void(0);" id="close" class="close">关闭</a>
+                </div>
+                <div class="addf-cont " id="vlan-cfg-cont">
+                    <div class="addf-line">
+                        <div class="clear"></div>
+                        <label for="aname" class="addf-line-le">端口名称：</label>
+                        <div class="addf-line-mid">
+                            <input type="text" id="aname" class="form-control" placeholder="不可修改" disabled="disabled"></input>
+                        </div>
+                       
+                        <div class="clear"></div>
+                    </div>
+                    <div class="addf-line">
+                        <div class="clear"></div>
+                        <label for="aname" class="addf-line-le">PVID：</label>
+                        <div class="addf-line-mid">
+                            <select name="pvid" id="pvid">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="addf-line">
+                        <div class="clear"></div>
+                        <label for="aname" class="addf-line-le">允许通过的VLAN：</label>
+                        <div class="addf-line-mid">
+                            <select name="permit_vlan" id="permit_vlan">
+                                <option value="writevlan">手工输入</option>
+                                <option value="allvlan">所有vlan</option>
+                            </select>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="addf-line">
+                        <div class="clear"></div>
+                        <label for="aname" class="addf-line-le">vlan范围：</label>
+                        <div class="addf-line-mid">
+                            <textarea name="vlanarea" id="vlanarea" ></textarea>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="addf-line">
+                    <div class="clear"></div>
+                    <label for="aname" class="addf-line-le"></label>
+                    <div class="addf-line-mid">
+                        <span class="hints">输入的vlan范围以英文逗号分隔</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                    <div class="addf-foot">
+                        <button class="btn-save btn sure">确定</button>
+                        <button class="btn-danger btn cansel">取消</button>
+                    </div>
+                </div>
+            </div>
+            <table id="vlan-cfg" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr class="tab-th">
+                        <td>序号</td>
+                        <th>端口</th>
+                        <th>PVID</th>
+                        <th>允许通过的vlan</th>
+                        <th>动作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>vlan121</td>
+                        <td>121</td>
+
+                        <td>vlan21</td>
+                        <td><a href="javascript:void(0);" class="vlanc-edit">修改 | </a>
+                            <a href="javascript:void(0);" class="vlanc-del">删除</a></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>vlan90</td>
+                        <td>90</td>
+                        <td>vlan90</td>
+                        
+                        <td><a href="javascript:void(0);" class="vlanc-edit">修改 | </a>
+                            <a href="javascript:void(0);" class="vlanc-del">删除</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+    //<![CDATA[
+    function hasClass(obj, cls) {
+        return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+    }
+
+    function addClass(obj, cls) {
+        if (!this.hasClass(obj, cls)) obj.className += " " + cls;
+    }
+
+    function removeClass(obj, cls) {
+        if (hasClass(obj, cls)) {
+            var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+            obj.className = obj.className.replace(reg, ' ');
+        }
+    }
+    window.onload = function() {
+        console.log($(".title-btn"));
+        var tab = $(".title-btn");
+        var wr = $(".wra");
+        for (var i = 0; i < tab.length; i++) {
+            tab[i].index = i;
+            tab[i].onclick = function() {
+                for (var j = 0; j < tab.length; j++) {
+                    addClass(tab[j], 'default-btn');
+                    wr[j].style.display = "none";
+                }
+                removeClass(this, "default-btn");
+                wr[this.index].style.display = "block";
+            }
+        }
+    }
+    function swi() {
+        console.log($("#dhcpswitchs").is(":checked"));
+        if ($("#dhcpswitchs").is(":checked")) {
+            $("#vlan-inf-cont").css("display", "block");
+        } else {
+            $("#vlan-inf-cont").css("display", "none");
+        }
+    };
+
+    function showVlani() {
+        $("#vlan-inf-addf").css("display", "block");
+        
+        $(".div-bgd").css("display", "block");
+    };
+
+    function closeVlani() {
+        $("#vlan-inf-addf").css("display", "none");
+        
+        $(".div-bgd").css("display", "none");
+    };
+
+    function showVlanc(){
+        $("#vlan-cfg-addf").css("display", "block");
+        $(".div-bgd").css("display", "block");
+    };
+    function closeVlanc(){
+        $("#vlan-cfg-addf").css("display", "none");
+        $(".div-bgd").css("display", "none");
+    }
+    $(".close").click(function() {
+        closeVlani();
+        closeVlanc();
+    });
+    $(".cansel").click(function() {
+        closeVlani();
+        closeVlanc();
+    });
+    $(".sure").click(function() {
+        closeVlani();
+        closeVlanc();
+    });
+    $(".header-add").click(function() {
+        showVlani();
+    });
+    $(".vlanc-edit").click(function(){
+        showVlanc();
+    })
+
+    function creGoPage(pageid, goid) {
+        var newnode = document.createElement("div");
+        newnode.setAttribute("id", "pa");
+        var nodec1 = document.createTextNode("第 ");
+        newnode.appendChild(nodec1);
+
+        var node1 = document.createElement("input");
+        node1.setAttribute("type", "text");
+        node1.setAttribute("id", "pageid");
+        node1.style.width = "25px";
+        node1.style.height = "16px";
+        newnode.appendChild(node1);
+
+        var nodec2 = document.createTextNode(" 页 ");
+        newnode.appendChild(nodec2);
+
+        var node2 = document.createElement("input");
+        node2.setAttribute("type", "button");
+        node2.setAttribute("value", "GO");
+        node2.setAttribute("class", "btn");
+        node2.setAttribute("id", "goid");
+        newnode.appendChild(node2);
+        newnode.style.display = "inline-block";
+        console.log(newnode);
+        return newnode;
+    }
+    $(document).ready(function($) {
+        var tablevlani = $("#vlan-inf").DataTable({
+            "pagingType": "full_numbers",
+            'fnDrawCallback': function(table) { //跳转指定页
+                var newnode = creGoPage("changePageVlani", "dataTable-btn-vlani");
+                $("#vlan-inf_paginate").append(newnode);
+                var oTable = $("#vlan-inf").dataTable();
+                $('#dataTable-btn-vlani').click(function(e) {
+                    if ($("#changePageVlani").val() && $("#changePageVlani").val() > 0) {
+                        console.log($("#changePageVlani").val());
+                        var redirectpage = $("#changePageVlani").val() - 1;
+                    } else {
+                        var redirectpage = 0;
+                    }
+                    oTable.fnPageChange(redirectpage);
+                });
+            },
+            language: { //多语言
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            }
+        });
+        //序号列
+        tablevlani.on('order.dt search.dt',
+            function() {
+                tablevlani.column(0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).nodes().each(function(cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        //搜索和页面条目隐藏
+        /*document.getElementById("#dhcp-static_filter").style.display = "none";*/
+        $("#vlan-inf_filter").css("display", "none");
+        $("#vlan-inf_length").css("display", "none");
+        //自定义搜索
+        /*$("#dhcp-static-sea").click(function(event) {
+            var sea_op = $("#dhcp-static-sea-op").val();
+            console.log(sea_op);
+            var sea_con = $("#dhcp-static-sea-con").val();
+            console.log(sea_con);
+            tablesta
+                .column(sea_op)
+                .search(sea_con)
+                .draw();
+        });*/
+        $(".vlani-edit").click(function() {
+            showVlani();
+        });
+
+        $(".vlani-del").click(function() {
+            console.log(tablevlani.row($(this).parents("tr")).data());
+            tablevlani.row($(this).parents("tr")).remove().draw();
+
+        });
+        //展示全部
+        /*$(".display-all").click(function() {
+            tablesta.ajax.reload().draw();
+        });*/
+        //清空表格
+        /*$(".clear-tab").click(function() {
+            tablesta.clear().draw();
+        });*/
+        var tablevlanc = $("#vlan-cfg").DataTable({
+            "pagingType": "full_numbers",
+            'fnDrawCallback': function(table) { //跳转指定页
+                var newnode = creGoPage("changePageVlanc", "dataTable-btn-vlanc");
+                $("#vlan-cfg_paginate").append(newnode);
+                var oTable = $("#vlan-cfg").dataTable();
+                $('#dataTable-btn-vlanc').click(function(e) {
+                    if ($("#changePageVlanc").val() && $("#changePageVlanc").val() > 0) {
+                        console.log($("#changePageVlanc").val());
+                        var redirectpage = $("#changePageVlanc").val() - 1;
+                    } else {
+                        var redirectpage = 0;
+                    }
+                    oTable.fnPageChange(redirectpage);
+                });
+            },
+            language: { //多语言
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            }
+        });
+        //序号列
+        tablevlanc.on('order.dt search.dt',
+            function() {
+                tablevlanc.column(0, {
+                    search: 'applied',
+                    order: 'applied'
+                }).nodes().each(function(cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        //搜索和页面条目隐藏
+        /*document.getElementById("#dhcp-static_filter").style.display = "none";*/
+        $("#vlan-cfg_filter").css("display", "none");
+        $("#vlan-cfg_length").css("display", "none");
+        //自定义搜索
+        /*$("#dhcp-static-sea").click(function(event) {
+            var sea_op = $("#dhcp-static-sea-op").val();
+            console.log(sea_op);
+            var sea_con = $("#dhcp-static-sea-con").val();
+            console.log(sea_con);
+            tablesta
+                .column(sea_op)
+                .search(sea_con)
+                .draw();
+        });*/
+        
+        $(".vlanc-del").click(function() {
+            console.log(tablevlanc.row($(this).parents("tr")).data());
+            tablevlanc.row($(this).parents("tr")).remove().draw();
+
+        });
+    });
+
+    //]]>
+    </script>
+    <%+footer%>
